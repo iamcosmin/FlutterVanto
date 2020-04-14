@@ -14,10 +14,10 @@ class Elem extends StatefulWidget {
       : super(key: key);
 
   @override
-  _StatefulStateCupertino createState() => _StatefulStateCupertino();
+  _Elem createState() => _Elem();
 }
 
-class _StatefulStateCupertino extends State<Elem> {
+class _Elem extends State<Elem> {
   @override
   Widget build(BuildContext context) {
     return ListTile(
@@ -35,32 +35,23 @@ class _StatefulStateCupertino extends State<Elem> {
         size: 30,
       ),
       onTap: () {
-        showCupertinoModalPopup(
-            context: context,
-            builder: (BuildContext context) => CupertinoActionSheet(
-                  title: Text(
-                    widget.titlu,
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                  ),
-                  message: Text('Selectează dintre opțiunile de mai jos!'),
-                  actions: <Widget>[
-                    CupertinoActionSheetAction(
-                      child: Text(widget.tip),
-                      onPressed: () => {
-                        Navigator.of(context, rootNavigator: true).pop(),
-                        launch(widget.link)
-                      },
-                    ),
-                  ],
-                  cancelButton: CupertinoActionSheetAction(
-                    isDefaultAction: true,
-                    isDestructiveAction: true,
-                    child: Text('Anulează'),
-                    onPressed: () =>
-                        {Navigator.of(context, rootNavigator: true).pop()},
-                  ),
-                ));
+        Navigator.push(
+            context, CupertinoPageRoute(builder: (context) => Detaile()));
       },
+    );
+  }
+}
+
+class Detaile extends StatelessWidget {
+  // receive data from the FirstScreen as a parameter
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return CupertinoPageScaffold(
+      navigationBar: const CupertinoNavigationBar(
+        middle: Text('Hi!'),
+      ),
+      child: Text('Hello'),
     );
   }
 }
@@ -71,10 +62,10 @@ class Div extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _StatefulStateCupertinoTwo createState() => _StatefulStateCupertinoTwo();
+  _Div createState() => _Div();
 }
 
-class _StatefulStateCupertinoTwo extends State<Div> {
+class _Div extends State<Div> {
   @override
   Widget build(BuildContext context) {
     return Divider(
