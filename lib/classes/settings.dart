@@ -9,7 +9,6 @@ class Settings extends StatefulWidget {
 class SettingsScreen extends State<Settings> {
   @override
   Widget build(BuildContext context) {
-    bool dark = false;
     return CupertinoPageScaffold(
         child: CustomScrollView(
       slivers: <Widget>[
@@ -41,7 +40,7 @@ class SettingsScreen extends State<Settings> {
                                 child: Text('Mod întunecat',
                                     style: TextStyle(
                                       color: Colors.white,
-                                      fontSize: 20,
+                                      fontSize: 19,
                                     )),
                               ),
                               trailing:  CupertinoSwitch(
@@ -57,7 +56,7 @@ class SettingsScreen extends State<Settings> {
                                 child: Text('Primește versiuni beta',
                                     style: TextStyle(
                                       color: Colors.white,
-                                      fontSize: 20,
+                                      fontSize: 19,
                                     )),
                               ),
                               trailing:  CupertinoSwitch(
@@ -72,7 +71,7 @@ class SettingsScreen extends State<Settings> {
                                 child: Text('Act. carac. experimentale',
                                     style: TextStyle(
                                       color: Colors.white,
-                                      fontSize: 20,
+                                      fontSize: 19,
                                     )),
                               ),
                               trailing:  CupertinoSwitch(
@@ -82,10 +81,10 @@ class SettingsScreen extends State<Settings> {
                           ),
                           Divider(color: Colors.grey),
                           Align(alignment: Alignment.bottomCenter,
-                          child: Text('\n Vanto, versiunea 5.0.5.', style: TextStyle(color: Colors.grey)),
+                          child: Text('\n Vanto 5.0.7, 2020050100', style: TextStyle(color: Colors.grey)),
                           ),
                           Align(alignment: Alignment.bottomCenter,
-                          child: Text('Ești înscris în programul beta.', style: TextStyle(color: Colors.grey)),
+                          child: Text('Ești înscris în programul de testare intern!', style: TextStyle(color: Colors.grey)),
                           )
                         ],
                       )),
