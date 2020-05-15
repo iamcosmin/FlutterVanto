@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="flutter_downloader_notification_started">Descărcare pornită</string>
+    <string name="flutter_downloader_notification_in_progress">Descărcare în progres</string>
+    <string name="flutter_downloader_notification_canceled">Descărcare anulată</string>
+    <string name="flutter_downloader_notification_failed">Descărcare eșuată</string>
+    <string name="flutter_downloader_notification_complete">Descărcare completă</string>
+    <string name="flutter_downloader_notification_paused">Descărcare oprită</string>
+</resources>

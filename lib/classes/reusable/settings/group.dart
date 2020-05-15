@@ -59,12 +59,13 @@ class SettingsGroup extends StatelessWidget {
               fontSize: 13.5,
               letterSpacing: -0.5,
             ),
-            child: Padding(
+            child: Container(
               padding: EdgeInsets.only(
                 left: 15.0,
                 right: 15.0,
                 bottom: 6.0,
               ),
+              color: CupertinoColors.black,
               child: header,
             ),
           )
@@ -74,7 +75,7 @@ class SettingsGroup extends StatelessWidget {
     columnChildren.add(
       Container(
         decoration: BoxDecoration(
-          color: CupertinoColors.white,
+          color: CupertinoColors.darkBackgroundGray,
           border: Border(
             top: const BorderSide(
               color: borderColor,
@@ -97,7 +98,7 @@ class SettingsGroup extends StatelessWidget {
       columnChildren.add(
           DefaultTextStyle(
             style: TextStyle(
-              color: groupSubtitle,
+              color: CupertinoColors.inactiveGray,
               fontSize: 13.0,
               letterSpacing: -0.08,
             ),

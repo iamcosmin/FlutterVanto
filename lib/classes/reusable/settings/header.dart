@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -18,19 +19,11 @@ class SettingsHeader extends StatelessWidget {
               right: 13.0,
             ),
             child: CircleAvatar(
-              backgroundColor: mediumGrayColor,
               radius: 30.0,
-              child: Padding(
-                padding: const EdgeInsets.only(
-                  bottom: 4.0,
-                ),
-                child: Text(
-                  'FR',
-                  style: TextStyle(
-                    fontSize: 23.0,
-                    color: CupertinoColors.white,
-                  ),
-                ),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(30.0),
+                child: Image.network(
+                    'https://pbs.twimg.com/profile_images/1177910105578360833/3outRqk9_400x400.jpg'),
               ),
             ),
           ),
@@ -41,20 +34,30 @@ class SettingsHeader extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Padding(padding: EdgeInsets.only(top: 16.0)),
-                  Text(
-                    'Flutter Rocks',
-                    style: TextStyle(
-                      fontSize: 21.0,
-                      letterSpacing: -0.52,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
+                  FutureBuilder(
+                      future: FirebaseAuth.instance.currentUser(),
+                      builder: (context, AsyncSnapshot<FirebaseUser> snapshot) {
+                        if (snapshot.hasData) {
+                          return Text(
+                            snapshot.data.email,
+                            style: TextStyle(
+                              fontSize: 19.0,
+                              letterSpacing: -0.52,
+                              fontWeight: FontWeight.w500,
+                              color: CupertinoColors.white,
+                            ),
+                          );
+                        } else {
+                          return Text('Loading..');
+                        }
+                      }),
                   Padding(padding: EdgeInsets.only(top: 6.0)),
                   Text(
-                    'Apple ID, iCloud, iTunes & App Store',
+                    'Cont, Sincronizare, Voni',
                     style: TextStyle(
                       fontSize: 13.0,
                       letterSpacing: -0.1,
+                      color: CupertinoColors.inactiveGray,
                     ),
                   ),
                 ],

@@ -1,6 +1,8 @@
 import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 
 import 'colors.dart';
 
@@ -46,38 +48,43 @@ class SettingsItemState extends State<SettingsItem> {
     List<Widget> rowChildren = [];
     if (widget.iconAssetLabel != null) {
       rowChildren.add(
-        Padding(
+        Container(
           padding: const EdgeInsets.only(
             left: 15.0,
             bottom: 2.0,
           ),
-          child: Image.asset(
-            'assets/${widget.iconAssetLabel}.png',
-            package: 'ios_settings_icons',
+          child: Container(
             height: 29.0,
+            width: 29.0,
+            child: Image.network(
+                widget.iconAssetLabel
+            ),
           ),
+          color: CupertinoColors.darkBackgroundGray,
         ),
       );
     }
 
     Widget titleSection;
     if (widget.subtitle == null) {
-      titleSection = Padding(
+      titleSection = Container(
         padding: EdgeInsets.only(top: 1.5),
-        child: Text(widget.label),
+        child: Text(widget.label,style: TextStyle(color: Colors.white)),
+        color: CupertinoColors.darkBackgroundGray,
       );
     } else {
       titleSection = Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          const Padding(padding: EdgeInsets.only(top: 8.5)),
+          Container(padding: EdgeInsets.only(top: 8.5), color: CupertinoColors.darkBackgroundGray,),
           Text(widget.label),
-          const Padding(padding: EdgeInsets.only(top: 4.0)),
+          Container(padding: EdgeInsets.only(top: 4.0), color: CupertinoColors.darkBackgroundGray,),
           Text(
             widget.subtitle,
             style: TextStyle(
               fontSize: 12.0,
               letterSpacing: -0.2,
+              color: Colors.white,
             ),
           )
         ],
@@ -86,10 +93,11 @@ class SettingsItemState extends State<SettingsItem> {
 
     rowChildren.add(
       Expanded(
-        child: Padding(
+        child: Container(
           padding: const EdgeInsets.only(
             left: 15.0,
           ),
+          color: CupertinoColors.darkBackgroundGray,
           child: titleSection,
         ),
       ),
@@ -98,8 +106,9 @@ class SettingsItemState extends State<SettingsItem> {
     switch (widget.type) {
       case SettingsItemType.toggle:
         rowChildren.add(
-          Padding(
+          Container(
             padding: const EdgeInsets.only(right: 11.0),
+            color: CupertinoColors.darkBackgroundGray,
             child: CupertinoSwitch(
               value: switchValue,
               onChanged: (bool value) =>
@@ -112,11 +121,12 @@ class SettingsItemState extends State<SettingsItem> {
         final List<Widget> rightRowChildren = [];
         if (widget.value != null) {
           rightRowChildren.add(
-            Padding(
+            Container(
               padding: const EdgeInsets.only(
                 top: 1.5,
                 right: 2.25,
               ),
+              color: CupertinoColors.darkBackgroundGray,
               child: Text(
                 widget.value,
                 style: TextStyle(color: CupertinoColors.inactiveGray),
@@ -127,11 +137,12 @@ class SettingsItemState extends State<SettingsItem> {
 
         if (widget.hasDetails) {
           rightRowChildren.add(
-            Padding(
+            Container(
               padding: const EdgeInsets.only(
                 top: 0.5,
                 left: 2.25,
               ),
+              color: CupertinoColors.darkBackgroundGray,
               child: Icon(
                 CupertinoIcons.forward,
                 color: mediumGrayColor,
@@ -141,8 +152,9 @@ class SettingsItemState extends State<SettingsItem> {
           );
         }
 
-        rightRowChildren.add(Padding(
+        rightRowChildren.add(Container(
           padding: const EdgeInsets.only(right: 8.5),
+          color: CupertinoColors.darkBackgroundGray,
         ));
 
 
@@ -156,7 +168,7 @@ class SettingsItemState extends State<SettingsItem> {
 
     return AnimatedContainer(
       duration: const Duration(milliseconds: 200),
-      color: pressed ? itemPressedColor : const Color(0x00FFFFFF),
+      color: CupertinoColors.darkBackgroundGray,
       child: GestureDetector(
         behavior: HitTestBehavior.opaque,
         onTap: () {

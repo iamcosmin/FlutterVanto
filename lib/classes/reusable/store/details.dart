@@ -6,8 +6,8 @@ import 'package:url_launcher/url_launcher.dart';
 class Details extends StatelessWidget {
   final String title;
   final String image;
-  final String link;
   final String subtitle;
+  final String link;
   Details(this.title, this.image, this.subtitle, this.link);
   // receive data from the FirstScreen as a parameter
   @override
@@ -16,6 +16,7 @@ class Details extends StatelessWidget {
     return CupertinoPageScaffold(
       navigationBar: CupertinoNavigationBar(
         middle: Text(this.title),
+        previousPageTitle: 'Înapoi',
       ),
       child: SafeArea(
         top: false,
@@ -130,3 +131,10 @@ class Details extends StatelessWidget {
     );
   }
 }
+
+
+
+
+
+
+
