@@ -1,4 +1,3 @@
-import 'package:Vanto/classes/authentication/first.dart';
 import 'package:Vanto/classes/authentication/redirect.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

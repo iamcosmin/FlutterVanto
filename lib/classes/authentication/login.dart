@@ -1,8 +1,5 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 
 import 'authentication.dart';
 
@@ -163,10 +160,13 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
         padding: EdgeInsets.fromLTRB(0.0, 70.0, 0.0, 0.0),
         child: CircleAvatar(
           backgroundColor: Colors.transparent,
-          radius: 48.0,
-          child: FlutterLogo(
-            size: 150.0,
-          ),
+          radius: 80.0,
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(100.0),
+            child: Image.network(
+              'https://lh3.googleusercontent.com/puERkjc7E2so0PgaamK0NQ3FQvTjiTZlAjekMc7bVr1xvoCugIzEAMo-zUi3bfGcPQ=s180-rw'
+            )
+          )
         ),
       ),
     );
@@ -204,7 +204,7 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
   Widget showSecondaryButton() {
     return new CupertinoButton(
         child: new Text(
-            _isLoginForm ? 'Nu ai unul? Fă-ți!' : 'Ai deja unul? Autentifică-te!',
+            _isLoginForm ? 'Nu ai cont? Creează unul!' : 'Ai deja unul? Autentifică-te!',
             style: new TextStyle(fontSize: 18.0, fontWeight: FontWeight.w300)),
         onPressed: toggleFormMode);
   }

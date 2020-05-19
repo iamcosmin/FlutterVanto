@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 
-import 'colors.dart';
 import 'item.dart';
 
 class SettingsGroup extends StatelessWidget {
@@ -38,7 +37,13 @@ class SettingsGroup extends StatelessWidget {
                 right: 0.0,
                 left: leftPadding,
                 child: new Container(
-                  color: borderColor,
+                  decoration: BoxDecoration(
+                    color: CupertinoColors.darkBackgroundGray,
+                    border: Border(
+                      top: BorderSide(width: 0.5, color: Color.fromRGBO(75, 75, 75, 100)),
+                      bottom: BorderSide(width: 0.5, color: Color.fromRGBO(75, 75, 75, 100)),
+                    ),
+                  ),
                   height: 0.3,
                 ),
               ),
@@ -57,7 +62,6 @@ class SettingsGroup extends StatelessWidget {
             style: TextStyle(
               color: CupertinoColors.inactiveGray,
               fontSize: 13.5,
-              letterSpacing: -0.5,
             ),
             child: Container(
               padding: EdgeInsets.only(
@@ -77,14 +81,8 @@ class SettingsGroup extends StatelessWidget {
         decoration: BoxDecoration(
           color: CupertinoColors.darkBackgroundGray,
           border: Border(
-            top: const BorderSide(
-              color: borderColor,
-              width: 0.0,
-            ),
-            bottom: const BorderSide(
-              color: borderColor,
-              width: 0.0,
-            ),
+            top: BorderSide(width: 0.5, color: Color.fromRGBO(75, 75, 75, 100)),
+            bottom: BorderSide(width: 0.5, color: Color.fromRGBO(75, 75, 75, 100)),
           ),
         ),
         child: Column(

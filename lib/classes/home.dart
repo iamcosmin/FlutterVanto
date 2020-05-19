@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -14,11 +13,6 @@ class HomeScreen extends State<Home> {
         child: CustomScrollView(slivers: <Widget>[
       CupertinoSliverNavigationBar(
         largeTitle: Text('Acasă'),
-      ),
-      CupertinoSliverRefreshControl(
-        onRefresh: () {
-          return Future<void>.delayed(const Duration(seconds: 1));
-        },
       ),
       SliverPadding(
           padding: EdgeInsets.all(10.0),

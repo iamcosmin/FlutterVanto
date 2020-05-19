@@ -1,10 +1,8 @@
-import 'package:Vanto/classes/authentication/login.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'classes/authentication/authentication.dart';
 import 'classes/authentication/splash.dart';
-import 'classes/home.dart';
 
 void main()  {
   runApp(MyApp());

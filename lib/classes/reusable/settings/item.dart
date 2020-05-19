@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 
 import 'colors.dart';
 
@@ -69,7 +68,7 @@ class SettingsItemState extends State<SettingsItem> {
     if (widget.subtitle == null) {
       titleSection = Container(
         padding: EdgeInsets.only(top: 1.5),
-        child: Text(widget.label,style: TextStyle(color: Colors.white)),
+        child: Text(widget.label,style: TextStyle(color: Colors.white, fontSize: 17.0,)),
         color: CupertinoColors.darkBackgroundGray,
       );
     } else {
@@ -129,7 +128,7 @@ class SettingsItemState extends State<SettingsItem> {
               color: CupertinoColors.darkBackgroundGray,
               child: Text(
                 widget.value,
-                style: TextStyle(color: CupertinoColors.inactiveGray),
+                style: TextStyle(color: CupertinoColors.inactiveGray, fontSize: 15.0),
               ),
             ),
           );
@@ -168,7 +167,6 @@ class SettingsItemState extends State<SettingsItem> {
 
     return AnimatedContainer(
       duration: const Duration(milliseconds: 200),
-      color: CupertinoColors.darkBackgroundGray,
       child: GestureDetector(
         behavior: HitTestBehavior.opaque,
         onTap: () {

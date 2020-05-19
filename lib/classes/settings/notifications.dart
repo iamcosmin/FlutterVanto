@@ -5,7 +5,7 @@ import '../reusable/settings/colors.dart';
 
 class NotificationsPage extends StatelessWidget {
   static CupertinoPageRoute<void> route() => new CupertinoPageRoute(
-        title: 'Cellular',
+        title: 'Notificări',
         builder: (BuildContext context) => NotificationsPage(),
       );
 
@@ -13,7 +13,8 @@ class NotificationsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
         navigationBar: CupertinoNavigationBar(
-          previousPageTitle: 'Setări',
+          previousPageTitle: 'Configurări',
+          middle: Text('Notificări'),
         ),
         child: Container(
             color: backgroundGray,
@@ -34,40 +35,43 @@ class NotificationsPage extends StatelessWidget {
                         ),
                       );
                     default:
-                      return new Column(
-                        children: snapshot.data.documents
-                            .map((DocumentSnapshot document) {
-                          return Column(children: <Widget>[
-                            Container(
-                              alignment: Alignment.centerLeft,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10.0),
-                                  gradient: LinearGradient(colors: [
-                                    Colors.deepPurpleAccent,
-                                    Colors.pinkAccent
-                                  ])),
-                              child: Column(
-                                children: <Widget>[
-                                  Align(
-                                      alignment: Alignment.center,
-                                      heightFactor: 1.9,
-                                      child: Text(document['title'],
-                                          style: TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 22,
-                                              fontWeight: FontWeight.bold))),
-                                  Container(
-                                      padding: EdgeInsets.all(10.0),
-                                      child: Text(document['description'],
-                                          style: TextStyle(
-                                              fontSize: 16,
-                                              color: Colors.white)))
-                                ],
+                      return Container(
+                        padding: EdgeInsets.only(top: 30),
+                        child: new Column(
+                          children: snapshot.data.documents
+                              .map((DocumentSnapshot document) {
+                            return Column(children: <Widget>[
+                              Container(
+                                alignment: Alignment.centerLeft,
+                                decoration: BoxDecoration(
+                                    color: CupertinoColors.darkBackgroundGray
+                                ),
+                                child: Column(
+                                  children: <Widget>[
+                                    Container(
+                                      padding: EdgeInsets.only(left: 20.0),
+                                      child: Align(
+                                          alignment: Alignment.centerLeft,
+                                          heightFactor: 1.2,
+                                          child: Text(document['title'],
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 18,
+                                                  fontWeight: FontWeight.bold))),
+                                    ),
+                                    Container(
+                                        padding: EdgeInsets.all(10.0),
+                                        child: Text(document['description'],
+                                            style: TextStyle(
+                                                fontSize: 15,
+                                                color: CupertinoColors.inactiveGray)))
+                                  ],
+                                ),
                               ),
-                            ),
-                            Divider(color: Colors.black)
-                          ]);
-                        }).toList(),
+                              Divider(color: Colors.black)
+                            ]);
+                          }).toList(),
+                        ),
                       );
                   }
                 },

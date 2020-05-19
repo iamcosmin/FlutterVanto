@@ -1,6 +1,4 @@
-import 'package:Vanto/classes/authentication/login.dart';
-import 'package:Vanto/classes/authentication/splash.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:device_info/device_info.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -8,13 +6,15 @@ import '../reusable/settings/colors.dart';
 import '../reusable/settings/group.dart';
 import '../reusable/settings/item.dart';
 
-const versionname = '5.0.8';
-const versioncode = '2020050800';
-const builddate = '8 mai 2020';
+const versionname = '5.0.9 i3';
+const versioncode = '2020051800';
+const builddate = '18 mai 2020';
+DeviceInfoPlugin deviceInfo = DeviceInfoPlugin(); // instantiate device info plugin
+AndroidDeviceInfo androidDeviceInfo;
 
-Future<dynamic> _signOut(context) async {
-  await FirebaseAuth.instance.signOut();
-}
+
+
+
 
 class GeneralPage extends StatelessWidget {
   static CupertinoPageRoute<void> route() => new CupertinoPageRoute(
@@ -46,12 +46,6 @@ class GeneralPage extends StatelessWidget {
                   hasDetails: true,
                   onPress: () => Navigator.push(context, UpdatePage.route()),
                 ),
-                SettingsItem(
-                  label: 'Deconectare',
-                  type: SettingsItemType.modal,
-                  hasDetails: true,
-                  onPress: () => _signOut(context),
-                ),
               ],
             ),
             SettingsGroup(
@@ -81,11 +75,33 @@ class GeneralPage extends StatelessWidget {
   }
 }
 
-class AboutPage extends StatelessWidget {
+class AboutPage extends StatefulWidget {
   static CupertinoPageRoute<void> route() => new CupertinoPageRoute(
         title: 'Informații',
         builder: (BuildContext context) => AboutPage(),
       );
+
+  @override
+  _AboutPageState createState() => _AboutPageState();
+}
+
+class _AboutPageState extends State<AboutPage> {
+  String model;
+  String product;
+  void getDeviceinfo() async {
+    androidDeviceInfo = await deviceInfo.androidInfo; // instantiate Android Device Infoformation
+
+    setState(() {
+      model = androidDeviceInfo.model;
+      product = androidDeviceInfo.brand;
+    });
+  }
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getDeviceinfo();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -122,7 +138,7 @@ class AboutPage extends StatelessWidget {
                 ),
                 SettingsItem(
                   label: 'Dispozitiv',
-                  value: 'Samsung Galaxy J5 2016',
+                  value: '$model ($product)',
                   type: SettingsItemType.modal,
                 ),
               ],
@@ -175,13 +191,13 @@ class UpdatePage extends StatelessWidget {
                       mainAxisSize: MainAxisSize.min,
                       children: <Widget>[
                         Text(
-                          'Vanto text',
+                          'Vanto $versionname',
                           style: const TextStyle(
                               fontSize: 20.0, fontWeight: FontWeight.bold),
                         ),
                         const Padding(padding: EdgeInsets.only(top: 3.0)),
                         Text(
-                          'text',
+                          versioncode,
                           style: TextStyle(
                             color: CupertinoDynamicColor.resolve(
                                 CupertinoColors.secondaryLabel, context),
@@ -190,7 +206,7 @@ class UpdatePage extends StatelessWidget {
                         ),
                         const Padding(padding: EdgeInsets.only(top: 3.0)),
                         Text(
-                          'Actualizare',
+                          'Eroare',
                           style: TextStyle(
                             color: CupertinoDynamicColor.resolve(
                                 CupertinoColors.secondaryLabel, context),
@@ -209,7 +225,7 @@ class UpdatePage extends StatelessWidget {
                 padding: EdgeInsets.only(left: 15.0, right: 15.0, top: 10.0, bottom: 15.0),
                 color: CupertinoColors.darkBackgroundGray,
                 child: Text(
-                    'Vanto ${versioncode} aduce imbunatatiri. \n \nActualizati Vanto.',
+                    'Verificați actualizările Vanto din Magazin Play',
                     style: TextStyle(
                       fontSize: 15.0,
                     ),
@@ -218,7 +234,7 @@ class UpdatePage extends StatelessWidget {
             SettingsGroup(
               <Widget> [
                 SettingsItem(
-                  label: 'Descarcă și instalează',
+                  label: 'Accesați Magazin Play',
                   type: SettingsItemType.modal,
                   onPress: () => launch('https://play.google.com/store/apps/details?id=com.vanto.app')
                 )

@@ -1,3 +1,4 @@
+import 'package:Vanto/classes/reusable/settings/item.dart';
 import 'package:flutter/cupertino.dart';
 
 import '../reusable/settings/colors.dart';
@@ -22,6 +23,10 @@ class AppearancePage extends StatelessWidget {
           children: <Widget>[
             SettingsGroup(
               <Widget>[
+                SettingsItem(
+                  type: SettingsItemType.toggle,
+                   label: 'Mod întunecat',
+                )
               ],
             ),
           ],
