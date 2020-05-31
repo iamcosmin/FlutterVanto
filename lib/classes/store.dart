@@ -8,54 +8,54 @@ class Store extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
-        child: CustomScrollView(
-          slivers: [
-        CupertinoSliverNavigationBar(
-          largeTitle: Text('Magazin'),
-        ),
-        CupertinoSliverRefreshControl(
-          onRefresh: () {
-            return Future<void>.delayed(const Duration(seconds: 1));
-          },
-        ),
-        SliverPadding(
-          padding: MediaQuery.of(context)
-              .removePadding(
-                removeTop: true,
-                removeLeft: true,
-                removeRight: true,
-              )
-              .padding,
-          sliver: SliverList(
-            delegate: SliverChildBuilderDelegate(
-              (BuildContext context, int index) {
-                return Container(
-                  padding: EdgeInsets.all(10.0),
-                  child: Material(
-                    elevation: 4.0,
-                    borderRadius: BorderRadius.circular(10.0),
-                    color: CupertinoColors.darkBackgroundGray,
-                    child: Container(
-                        padding: const EdgeInsets.all(10.0),
-                        child: StreamBuilder<QuerySnapshot>(
-                          stream:
-                              Firestore.instance.collection('apps').snapshots(),
-                          builder: (BuildContext context,
-                              AsyncSnapshot<QuerySnapshot> snapshot) {
-                            if (snapshot.hasError)
-                              return new Text('Error: ${snapshot.error}');
-                            switch (snapshot.connectionState) {
-                              case ConnectionState.waiting:
+        child: DefaultTextStyle(
+      style: TextStyle(fontFamily: 'SF Pro Display'),
+      child: CustomScrollView(
+        slivers: [
+          CupertinoSliverNavigationBar(
+            largeTitle: Text('Magazin'),
+            leading: new Container(),
+          ),
+          CupertinoSliverRefreshControl(
+            onRefresh: () {
+              return Future<void>.delayed(const Duration(seconds: 1));
+            },
+          ),
+          SliverPadding(
+            padding: MediaQuery.of(context)
+                .removePadding(
+                  removeTop: true,
+                  removeLeft: true,
+                  removeRight: true,
+                )
+                .padding,
+            sliver: SliverList(
+              delegate: SliverChildBuilderDelegate(
+                (BuildContext context, int index) {
+                  return Container(
+                    padding: EdgeInsets.all(10.0),
+                    child: Material(
+                      elevation: 4.0,
+                      borderRadius: BorderRadius.circular(10.0),
+                      color: CupertinoTheme.of(context).primaryColor,
+                      child: Container(
+                          padding: const EdgeInsets.all(10.0),
+                          child: StreamBuilder<QuerySnapshot>(
+                            stream: Firestore.instance
+                                .collection('apps')
+                                .snapshots(),
+                            builder: (BuildContext context,
+                                AsyncSnapshot<QuerySnapshot> snapshot) {
+                              if (!snapshot.hasData) {
                                 return Container(
-                                  height:
-                                      MediaQuery.of(context).size.height / 1.5,
+                                  height: MediaQuery.of(context).size.height/1.5,
                                   child: Center(
-                                    child: CupertinoActivityIndicator(
-                                      radius: 15,
+                                      child: CircularProgressIndicator(
+                                        valueColor: new AlwaysStoppedAnimation<Color>(Colors.grey),
+                                      )
                                     ),
-                                  ),
                                 );
-                              default:
+                              }
                                 return new Column(
                                   children: snapshot.data.documents
                                       .map((DocumentSnapshot document) {
@@ -67,17 +67,17 @@ class Store extends StatelessWidget {
                                     );
                                   }).toList(),
                                 );
-                            }
-                          },
-                        )),
-                  ),
-                );
-              },
-              childCount: 1,
+                            },
+                          )),
+                    ),
+                  );
+                },
+                childCount: 1,
+              ),
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     ));
   }
 }

@@ -1,13 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import '../reusable/settings/colors.dart';
 
 class NotificationsPage extends StatelessWidget {
-  static CupertinoPageRoute<void> route() => new CupertinoPageRoute(
-        title: 'Notificări',
-        builder: (BuildContext context) => NotificationsPage(),
-      );
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +12,7 @@ class NotificationsPage extends StatelessWidget {
           middle: Text('Notificări'),
         ),
         child: Container(
-            color: backgroundGray,
+            color: CupertinoTheme.of(context).scaffoldBackgroundColor,
             child: ListView(children: <Widget>[
               StreamBuilder<QuerySnapshot>(
                 stream:
@@ -29,9 +24,9 @@ class NotificationsPage extends StatelessWidget {
                       return Container(
                         height: MediaQuery.of(context).size.height / 1.5,
                         child: Center(
-                          child: CupertinoActivityIndicator(
-                            radius: 15,
-                          ),
+                          child: CircularProgressIndicator(
+                            valueColor: new AlwaysStoppedAnimation<Color>(CupertinoColors.activeGreen),
+                          )
                         ),
                       );
                     default:
@@ -44,7 +39,7 @@ class NotificationsPage extends StatelessWidget {
                               Container(
                                 alignment: Alignment.centerLeft,
                                 decoration: BoxDecoration(
-                                    color: CupertinoColors.darkBackgroundGray
+                                    color: CupertinoTheme.of(context).primaryColor 
                                 ),
                                 child: Column(
                                   children: <Widget>[
@@ -55,7 +50,7 @@ class NotificationsPage extends StatelessWidget {
                                           heightFactor: 1.2,
                                           child: Text(document['title'],
                                               style: TextStyle(
-                                                  color: Colors.white,
+                                                  color: CupertinoTheme.of(context).primaryContrastingColor,
                                                   fontSize: 18,
                                                   fontWeight: FontWeight.bold))),
                                     ),
@@ -68,7 +63,7 @@ class NotificationsPage extends StatelessWidget {
                                   ],
                                 ),
                               ),
-                              Divider(color: Colors.black)
+                              Divider(color: CupertinoTheme.of(context).primaryColor)
                             ]);
                           }).toList(),
                         ),

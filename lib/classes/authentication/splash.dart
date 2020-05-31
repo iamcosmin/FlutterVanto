@@ -1,7 +1,7 @@
-import 'package:Vanto/classes/authentication/redirect.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'redirect.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'authentication.dart';
 import 'login.dart';
 
 enum AuthStatus {
@@ -11,10 +11,6 @@ enum AuthStatus {
 }
 
 class RootPage extends StatefulWidget {
-  RootPage({this.auth});
-
-  final BaseAuth auth;
-
   @override
   State<StatefulWidget> createState() => new _RootPageState();
 }
@@ -26,7 +22,7 @@ class _RootPageState extends State<RootPage> {
   @override
   void initState() {
     super.initState();
-    widget.auth.getCurrentUser().then((user) {
+    FirebaseAuth.instance.currentUser().then((user) {
       setState(() {
         if (user != null) {
           _userId = user?.uid;
@@ -38,7 +34,7 @@ class _RootPageState extends State<RootPage> {
   }
 
   void loginCallback() {
-    widget.auth.getCurrentUser().then((user) {
+    FirebaseAuth.instance.currentUser().then((user) {
       setState(() {
         _userId = user.uid.toString();
       });
@@ -59,7 +55,9 @@ class _RootPageState extends State<RootPage> {
     return Scaffold(
       body: Container(
         color: CupertinoColors.black,
-        child: Center(child: CupertinoActivityIndicator(radius: 20)),
+        child: Center(child: CircularProgressIndicator(
+          valueColor: new AlwaysStoppedAnimation<Color>(CupertinoColors.activeGreen),
+        )),
       ),
     );
   }
@@ -72,7 +70,6 @@ class _RootPageState extends State<RootPage> {
         break;
       case AuthStatus.NOT_LOGGED_IN:
         return new LoginSignupPage(
-          auth: widget.auth,
           loginCallback: loginCallback,
         );
         break;
@@ -80,7 +77,6 @@ class _RootPageState extends State<RootPage> {
         if (_userId.length > 0 && _userId != null) {
           return new TabNavigator(
             userId: _userId,
-            auth: widget.auth,
             logoutCallback: logoutCallback,
           );
         } else

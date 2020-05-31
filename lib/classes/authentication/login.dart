@@ -1,12 +1,12 @@
+import 'redirect.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
-import 'authentication.dart';
+import 'addname.dart';
 
 class LoginSignupPage extends StatefulWidget {
-  LoginSignupPage({this.auth, this.loginCallback});
-
-  final BaseAuth auth;
+  LoginSignupPage({this.loginCallback});
   final VoidCallback loginCallback;
 
   @override
@@ -14,6 +14,7 @@ class LoginSignupPage extends StatefulWidget {
 }
 
 class _LoginSignupPageState extends State<LoginSignupPage> {
+
   final _formKey = new GlobalKey<FormState>();
 
   String _email;
@@ -43,9 +44,21 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
       String userId = "";
       try {
         if (_isLoginForm) {
-          userId = await widget.auth.signIn(_email, _password);
+          AuthResult result = await FirebaseAuth.instance
+              .signInWithEmailAndPassword(email: _email, password: _password);
+          Navigator.pushReplacement(context,
+              CupertinoPageRoute(builder: (context) => TabNavigator()));
         } else {
-          userId = await widget.auth.signUp(_email, _password);
+          AuthResult result = await FirebaseAuth.instance
+              .createUserWithEmailAndPassword(
+                  email: _email, password: _password);
+          FirebaseUser user = result.user;
+          Firestore.instance.collection('users').document(user.email).setData({
+            'uid': user.uid,
+            'email': user.email,
+          });
+          Navigator.pushReplacement(context,
+              CupertinoPageRoute(builder: (context) => CreateNamePage()));
         }
         setState(() {
           _isLoading = false;
@@ -55,11 +68,36 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
           widget.loginCallback();
         }
       } catch (e) {
-        print(e);
+
         setState(() {
           _isLoading = false;
           _errorMessage = e.message;
           _formKey.currentState.reset();
+          FirebaseAuth.instance.setLanguageCode('ro');
+          showCupertinoDialog(
+              context: context,
+              builder: (context) => CupertinoAlertDialog(
+                    title: Text('Eroare!',
+                        style: TextStyle(
+                            fontFamily: 'SF Pro Display',
+                            letterSpacing: -0.5,
+                            fontSize: 17.0)),
+                    content: Container(
+                        padding: EdgeInsets.only(top: 10.0),
+                        child: Text(
+                          _errorMessage ?? 'Introdu-ți emailul!',
+                          style: TextStyle(
+                              fontFamily: 'SF Pro Display', fontSize: 15.0),
+                        )),
+                    actions: <Widget>[
+                      CupertinoDialogAction(
+                        child: Text('Reîncearcă',
+                            style: TextStyle(
+                                fontFamily: 'SF Pro Display', fontSize: 17.0)),
+                        onPressed: () => Navigator.pop(context),
+                      )
+                    ],
+                  ));
         });
       }
     }
@@ -70,6 +108,7 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
     _errorMessage = "";
     _isLoading = false;
     _isLoginForm = true;
+    FirebaseAuth.instance.setLanguageCode('ro');
     super.initState();
   }
 
@@ -87,39 +126,40 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
 
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
-      backgroundColor: CupertinoColors.black,
-        body: Stack(
-      children: <Widget>[
-        _showForm(),
-        _showCircularProgress(),
-      ],
-    ));
+    return new CupertinoPageScaffold(
+        backgroundColor: CupertinoTheme.of(context).scaffoldBackgroundColor,
+        child: Stack(
+          children: <Widget>[
+            _showForm(),
+            _showCircularProgress(),
+          ],
+        ));
   }
 
   Widget _showCircularProgress() {
     if (_isLoading) {
       return AnimatedContainer(
-          duration: Duration(seconds: 1),
-          color: CupertinoColors.black,
+          duration: Duration(seconds: 2),
+          color: CupertinoTheme.of(context).scaffoldBackgroundColor,
           // Provide an optional curve to make the animation feel smoother.
           curve: Curves.fastOutSlowIn,
           height: MediaQuery.of(context).size.height,
           width: MediaQuery.of(context).size.width,
-          child: Center(child: CupertinoActivityIndicator(radius: 20.0,))
-      );
+          child: Center(
+             child: CircularProgressIndicator(
+               valueColor: new AlwaysStoppedAnimation<Color>(CupertinoColors.activeGreen),
+             )));
     }
     return Container(
-      color: CupertinoColors.black,
+      color: CupertinoTheme.of(context).scaffoldBackgroundColor,
       height: 10.0,
       width: 10.0,
     );
   }
 
-
   Widget _showForm() {
     return new Container(
-        color: CupertinoColors.black,
+        color: CupertinoTheme.of(context).scaffoldBackgroundColor,
         padding: EdgeInsets.all(16.0),
         child: new Form(
           key: _formKey,
@@ -131,26 +171,9 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
               showPasswordInput(),
               showPrimaryButton(),
               showSecondaryButton(),
-              showErrorMessage(),
             ],
           ),
         ));
-  }
-
-  Widget showErrorMessage() {
-    if (_errorMessage != null) {
-      return new Text(
-        _errorMessage,
-        style: TextStyle(
-          fontSize: 15,
-          color: Colors.red,
-        ),
-      );
-    } else {
-      return new Container(
-        height: 0.0,
-      );
-    }
   }
 
   Widget showLogo() {
@@ -159,15 +182,12 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
       child: Padding(
         padding: EdgeInsets.fromLTRB(0.0, 70.0, 0.0, 0.0),
         child: CircleAvatar(
-          backgroundColor: Colors.transparent,
-          radius: 80.0,
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(100.0),
-            child: Image.network(
-              'https://lh3.googleusercontent.com/puERkjc7E2so0PgaamK0NQ3FQvTjiTZlAjekMc7bVr1xvoCugIzEAMo-zUi3bfGcPQ=s180-rw'
-            )
-          )
-        ),
+            backgroundColor: Colors.transparent,
+            radius: 80.0,
+            child: ClipRRect(
+                borderRadius: BorderRadius.circular(100.0),
+                child: Image.network(
+                    'https://lh3.googleusercontent.com/puERkjc7E2so0PgaamK0NQ3FQvTjiTZlAjekMc7bVr1xvoCugIzEAMo-zUi3bfGcPQ=s180-rw'))),
       ),
     );
   }
@@ -179,8 +199,10 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
         maxLines: 1,
         keyboardType: TextInputType.emailAddress,
         autofocus: false,
-        style: TextStyle(color: CupertinoColors.white, fontSize: 20.0),
+        style: TextStyle(color: CupertinoTheme.of(context).primaryContrastingColor, fontSize: 20.0),
+        prefix: Padding(padding: EdgeInsets.only(left: 10.0)),
         placeholder: 'Email',
+        cursorColor: CupertinoColors.activeGreen,
         onChanged: (value) => _email = value.trim(),
       ),
     );
@@ -193,19 +215,25 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
         maxLines: 1,
         obscureText: true,
         autofocus: false,
-        style: TextStyle(color: CupertinoColors.white, fontSize: 20.0),
+        style: TextStyle(color: CupertinoTheme.of(context).primaryContrastingColor, fontSize: 20.0),
+        prefix: Padding(padding: EdgeInsets.only(left: 10.0)),
         placeholder: 'Parolă',
+        cursorColor: CupertinoColors.activeGreen,
         onChanged: (value) => _password = value.trim(),
       ),
     );
   }
 
-
   Widget showSecondaryButton() {
     return new CupertinoButton(
         child: new Text(
-            _isLoginForm ? 'Nu ai cont? Creează unul!' : 'Ai deja unul? Autentifică-te!',
-            style: new TextStyle(fontSize: 18.0, fontWeight: FontWeight.w300)),
+            _isLoginForm
+                ? 'Nu ai cont? Creează unul!'
+                : 'Ai deja unul? Autentifică-te!',
+            style: new TextStyle(
+                fontSize: 18.0,
+                fontWeight: FontWeight.w600,
+                color: Colors.green)),
         onPressed: toggleFormMode);
   }
 
@@ -215,9 +243,12 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
         child: SizedBox(
           height: 50.0,
           child: new CupertinoButton(
-            color: CupertinoColors.systemBlue,
+            color: Colors.green,
             child: new Text(_isLoginForm ? 'Autentificare' : 'Creează cont',
-                style: new TextStyle(fontSize: 20.0, color: Colors.white)),
+                style: new TextStyle(
+                    fontSize: 20.0,
+                    color: Colors.white,
+                    fontWeight: FontWeight.w600)),
             onPressed: validateAndSubmit,
           ),
         ));

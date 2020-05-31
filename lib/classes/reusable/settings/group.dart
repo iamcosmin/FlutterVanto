@@ -1,5 +1,4 @@
 import 'package:flutter/cupertino.dart';
-
 import 'item.dart';
 
 class SettingsGroup extends StatelessWidget {
@@ -38,8 +37,8 @@ class SettingsGroup extends StatelessWidget {
                 left: leftPadding,
                 child: new Container(
                   decoration: BoxDecoration(
-                    color: CupertinoColors.darkBackgroundGray,
-                    border: Border(
+                      color: CupertinoTheme.of(context).primaryColor,
+                      border: Border(
                       top: BorderSide(width: 0.5, color: Color.fromRGBO(75, 75, 75, 100)),
                       bottom: BorderSide(width: 0.5, color: Color.fromRGBO(75, 75, 75, 100)),
                     ),
@@ -69,7 +68,7 @@ class SettingsGroup extends StatelessWidget {
                 right: 15.0,
                 bottom: 6.0,
               ),
-              color: CupertinoColors.black,
+              color: CupertinoTheme.of(context).scaffoldBackgroundColor,
               child: header,
             ),
           )
@@ -79,8 +78,8 @@ class SettingsGroup extends StatelessWidget {
     columnChildren.add(
       Container(
         decoration: BoxDecoration(
-          color: CupertinoColors.darkBackgroundGray,
-          border: Border(
+            color: CupertinoTheme.of(context).primaryColor,
+            border: Border(
             top: BorderSide(width: 0.5, color: Color.fromRGBO(75, 75, 75, 100)),
             bottom: BorderSide(width: 0.5, color: Color.fromRGBO(75, 75, 75, 100)),
           ),

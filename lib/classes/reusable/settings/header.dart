@@ -1,8 +1,7 @@
-import 'package:Vanto/classes/settings/account.dart';
+import '../../settings/account/account.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'colors.dart';
 
 /// The first big header item in settings that aggregates the user's profile
 /// type data.
@@ -50,11 +49,11 @@ class SettingsHeader extends StatelessWidget {
                             Text(
                               snapshot.data.displayName != null
                                   ? snapshot.data.displayName
-                                  : 'Nume Nesetat',
+                                  : 'null',
                               style: TextStyle(
                                 fontSize: 21.0,
                                 fontWeight: FontWeight.w500,
-                                color: CupertinoColors.white,
+                                color: CupertinoTheme.of(context).primaryContrastingColor,
                               ),
                             ),
                             Padding(padding: EdgeInsets.only(top: 6.0)),
@@ -73,7 +72,7 @@ class SettingsHeader extends StatelessWidget {
                       padding: const EdgeInsets.only(right: 8.0),
                       child: Icon(
                         CupertinoIcons.forward,
-                        color: mediumGrayColor,
+                        color: CupertinoColors.inactiveGray,
                         size: 20.0,
                       ),
                     ),

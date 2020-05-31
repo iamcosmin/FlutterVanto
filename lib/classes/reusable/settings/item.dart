@@ -1,9 +1,5 @@
-import 'dart:async';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
-import 'colors.dart';
 
 enum SettingsItemType {
   // Just on and off.
@@ -18,11 +14,13 @@ class SettingsItem extends StatefulWidget {
   const SettingsItem({
     @required this.type,
     @required this.label,
+    this.onChanged,
     this.subtitle,
     this.iconAssetLabel,
     this.value,
     this.hasDetails = false,
     this.onPress,
+    this.val
   }) : assert(label != null),
         assert(type != null);
 
@@ -33,6 +31,8 @@ class SettingsItem extends StatefulWidget {
   final String value;
   final bool hasDetails;
   final PressOperationCallback onPress;
+  final void Function(bool) onChanged;
+  final bool val;
 
   @override
   State<StatefulWidget> createState() => new SettingsItemState();
@@ -59,7 +59,7 @@ class SettingsItemState extends State<SettingsItem> {
                 widget.iconAssetLabel
             ),
           ),
-          color: CupertinoColors.darkBackgroundGray,
+          color: CupertinoTheme.of(context).primaryColor,
         ),
       );
     }
@@ -68,22 +68,22 @@ class SettingsItemState extends State<SettingsItem> {
     if (widget.subtitle == null) {
       titleSection = Container(
         padding: EdgeInsets.only(top: 1.5),
-        child: Text(widget.label,style: TextStyle(color: Colors.white, fontSize: 17.0,)),
-        color: CupertinoColors.darkBackgroundGray,
+        child: Text(widget.label,style: TextStyle(color: CupertinoTheme.of(context).primaryContrastingColor, fontSize: 17.0,)),
+        color: CupertinoTheme.of(context).primaryColor,
       );
     } else {
       titleSection = Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Container(padding: EdgeInsets.only(top: 8.5), color: CupertinoColors.darkBackgroundGray,),
+          Container(padding: EdgeInsets.only(top: 8.5), color: CupertinoTheme.of(context).primaryColor,),
           Text(widget.label),
-          Container(padding: EdgeInsets.only(top: 4.0), color: CupertinoColors.darkBackgroundGray,),
+          Container(padding: EdgeInsets.only(top: 4.0), color: CupertinoTheme.of(context).primaryColor,),
           Text(
             widget.subtitle,
             style: TextStyle(
               fontSize: 12.0,
               letterSpacing: -0.2,
-              color: Colors.white,
+              color: CupertinoTheme.of(context).primaryContrastingColor,
             ),
           )
         ],
@@ -96,7 +96,7 @@ class SettingsItemState extends State<SettingsItem> {
           padding: const EdgeInsets.only(
             left: 15.0,
           ),
-          color: CupertinoColors.darkBackgroundGray,
+          color: CupertinoTheme.of(context).primaryColor,
           child: titleSection,
         ),
       ),
@@ -107,11 +107,10 @@ class SettingsItemState extends State<SettingsItem> {
         rowChildren.add(
           Container(
             padding: const EdgeInsets.only(right: 11.0),
-            color: CupertinoColors.darkBackgroundGray,
-            child: CupertinoSwitch(
-              value: switchValue,
-              onChanged: (bool value) =>
-                  setState(() => switchValue = value),
+              color: CupertinoTheme.of(context).primaryColor,
+              child: CupertinoSwitch(
+              value: widget.val,
+              onChanged: widget.onChanged
             ),
           ),
         );
@@ -125,7 +124,7 @@ class SettingsItemState extends State<SettingsItem> {
                 top: 1.5,
                 right: 2.25,
               ),
-              color: CupertinoColors.darkBackgroundGray,
+              color: CupertinoTheme.of(context).primaryColor,
               child: Text(
                 widget.value,
                 style: TextStyle(color: CupertinoColors.inactiveGray, fontSize: 15.0),
@@ -141,10 +140,10 @@ class SettingsItemState extends State<SettingsItem> {
                 top: 0.5,
                 left: 2.25,
               ),
-              color: CupertinoColors.darkBackgroundGray,
+              color: CupertinoTheme.of(context).primaryColor,
               child: Icon(
                 CupertinoIcons.forward,
-                color: mediumGrayColor,
+                color: CupertinoColors.inactiveGray,
                 size: 21.0,
               ),
             ),
@@ -153,7 +152,7 @@ class SettingsItemState extends State<SettingsItem> {
 
         rightRowChildren.add(Container(
           padding: const EdgeInsets.only(right: 8.5),
-          color: CupertinoColors.darkBackgroundGray,
+            color: CupertinoTheme.of(context).primaryColor,
         ));
 
 

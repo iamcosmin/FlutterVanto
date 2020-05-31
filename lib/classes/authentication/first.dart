@@ -1,12 +1,9 @@
-import 'package:Vanto/classes/authentication/login.dart';
+import 'login.dart';
 import 'package:flutter/cupertino.dart';
 
-import 'authentication.dart';
-
 class WelcomeScreen extends StatelessWidget {
-  WelcomeScreen({this.auth, this.loginCallback});
+  WelcomeScreen({this.loginCallback});
 
-  final BaseAuth auth;
   final VoidCallback loginCallback;
   @override
   Widget build(BuildContext context) {
@@ -27,7 +24,6 @@ class WelcomeScreen extends StatelessWidget {
                   context,
                   CupertinoPageRoute(
                       builder: (BuildContext context) => LoginSignupPage(
-                            auth: auth,
                             loginCallback: loginCallback,
                           ))),
             )),

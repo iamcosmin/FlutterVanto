@@ -17,6 +17,7 @@ class TVScreen extends State<TV> {
       slivers: [
         CupertinoSliverNavigationBar(
           largeTitle: Text('TV'),
+          leading: new Container(),
         ),
         CupertinoSliverRefreshControl(
           onRefresh: () {
@@ -37,40 +38,44 @@ class TVScreen extends State<TV> {
                 return Container(
                     padding: EdgeInsets.all(10.0),
                     child: Material(
-                      elevation: 4.0,
-                      borderRadius: BorderRadius.circular(10.0),
-                      color: CupertinoColors.darkBackgroundGray,
-                      child: StreamBuilder<QuerySnapshot>(
-                        stream: Firestore.instance.collection('movies')
-                            .snapshots(),
-                        builder: (BuildContext context,
-                            AsyncSnapshot<QuerySnapshot> snapshot) {
-                          if (snapshot.hasError)
-                            return new Text('Error: ${snapshot.error}');
-                          switch (snapshot.connectionState) {
-                            case ConnectionState.waiting:
-                              return Container(
-                                height: MediaQuery.of(context).size.height/1.5,
-                                child: Center(
-                                  child: CupertinoActivityIndicator(radius: 15,),
-                                ),
-                              );
-                            default:
-                              return new Column(
-                                children: snapshot.data.documents
-                                    .map((DocumentSnapshot document) {
-                                  return StoreTile(
-                                    title: document['title'],
-                                    image: document['image'],
-                                    link: document['link'],
-                                    subtitle: document['subtitle'],
-                                  );
-                                }).toList(),
-                              );
-                          }
-                        },
-                      )
-                    ));
+                        elevation: 4.0,
+                        borderRadius: BorderRadius.circular(10.0),
+                        color:
+                            CupertinoTheme.of(context).primaryColor,
+                        child: StreamBuilder<QuerySnapshot>(
+                          stream: Firestore.instance
+                              .collection('movies')
+                              .snapshots(),
+                          builder: (BuildContext context,
+                              AsyncSnapshot<QuerySnapshot> snapshot) {
+                            if (snapshot.hasError)
+                              return new Text('Error: ${snapshot.error}');
+                            switch (snapshot.connectionState) {
+                              case ConnectionState.waiting:
+                                return Container(
+                                  height:
+                                      MediaQuery.of(context).size.height / 1.5,
+                                  child: Center(
+                                    child: CircularProgressIndicator(
+                                      valueColor: new AlwaysStoppedAnimation<Color>(Colors.grey),
+                                    )
+                                  ),
+                                );
+                              default:
+                                return new Column(
+                                  children: snapshot.data.documents
+                                      .map((DocumentSnapshot document) {
+                                    return StoreTile(
+                                      title: document['title'],
+                                      image: document['image'],
+                                      link: document['link'],
+                                      subtitle: document['subtitle'],
+                                    );
+                                  }).toList(),
+                                );
+                            }
+                          },
+                        )));
               },
               childCount: 1,
             ),
