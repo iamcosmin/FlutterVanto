@@ -6,6 +6,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../../../locale.dart';
+
 // ignore: must_be_immutable
 class SecurityDetails extends StatefulWidget {
   @override
@@ -17,10 +19,17 @@ class _SecurityDetailsState extends State<SecurityDetails> {
   bool loading;
 
   @override
+  void initState() {
+    super.initState();
+    setState(() {
+
+    });
+  }
+  @override
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
       navigationBar: CupertinoNavigationBar(
-        middle: Text('Parolă și Securitate'),
+        middle: Text(Translation.of(context).hermesSecurity),
         previousPageTitle: 'Hermes',
       ),
       child: Container(
@@ -31,7 +40,7 @@ class _SecurityDetailsState extends State<SecurityDetails> {
               <Widget>[
                 SettingsItem(
                   type: SettingsItemType.modal,
-                  label: 'Schimbă Parola',
+                  label: Translation.of(context).generalPassword,
                   onPress: () => Navigator.push(
                       context,
                       CupertinoPageRoute(
@@ -46,7 +55,7 @@ class _SecurityDetailsState extends State<SecurityDetails> {
               <Widget>[
                 SettingsItem(
                   type: SettingsItemType.modal,
-                  label: 'Ștergere cont',
+                  label: Translation.of(context).hermesDestroyTitle,
                   onPress: () => Navigator.push(
                       context,
                       CupertinoPageRoute(
@@ -74,6 +83,13 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
   bool loading;
   String _errorMessage;
 
+  @override
+  void initState() {
+    super.initState();
+    setState(() {
+
+    });
+  }
   void func() async {
     FirebaseUser user = await FirebaseAuth.instance.currentUser();
     setState(() {
@@ -93,7 +109,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
         showCupertinoDialog(
             context: context,
             builder: (context) => CupertinoAlertDialog(
-              title: Text('Eroare!',
+              title: Text(Translation.of(context).generalError,
                   style: TextStyle(
                       fontFamily: 'SF Pro Display',
                       letterSpacing: -0.5,

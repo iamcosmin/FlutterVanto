@@ -1,6 +1,7 @@
 import 'package:device_info/device_info.dart';
 import 'package:flutter/cupertino.dart';
 
+import '../../locale.dart';
 import '../reusable/settings/group.dart';
 import '../reusable/settings/item.dart';
 
@@ -20,13 +21,20 @@ class GeneralPage extends StatefulWidget {
 
 class _GeneralPageState extends State<GeneralPage> {
 
+  @override
+  void initState() {
+    super.initState();
+    setState(() {
+
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
       navigationBar: CupertinoNavigationBar(
-        previousPageTitle: 'Configurări',
-        middle: Text('General'),
+        previousPageTitle: Translation.of(context).navigationSettings,
+        middle: Text(Translation.of(context).settingsGeneral),
       ),
       child: Container(
         color: CupertinoTheme.of(context).scaffoldBackgroundColor,
@@ -35,13 +43,13 @@ class _GeneralPageState extends State<GeneralPage> {
             SettingsGroup(
               <Widget>[
                 SettingsItem(
-                  label: 'Informații',
+                  label: Translation.of(context).settingsGeneralInfo,
                   type: SettingsItemType.modal,
                   hasDetails: true,
                   onPress: () => Navigator.push(context, AboutPage.route()),
                 ),
                 SettingsItem(
-                  label: 'Actualizare software',
+                  label: Translation.of(context).settingsGeneralUpdates,
                   type: SettingsItemType.modal,
                   hasDetails: true,
                   onPress: () => Navigator.push(context, UpdatePage.route()),
@@ -53,17 +61,12 @@ class _GeneralPageState extends State<GeneralPage> {
                 SettingsItem(
                   label: 'Magazin',
                   type: SettingsItemType.modal,
-                  hasDetails: true,
-                ),
-                SettingsItem(
-                  label: 'Muzică',
-                  type: SettingsItemType.modal,
-                  hasDetails: true,
+                  hasDetails: false,
                 ),
                 SettingsItem(
                   label: 'TV',
                   type: SettingsItemType.modal,
-                  hasDetails: true,
+                  hasDetails: false,
                 ),
               ],
             ),

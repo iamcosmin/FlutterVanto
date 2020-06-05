@@ -2,14 +2,29 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class NotificationsPage extends StatelessWidget {
+import '../../locale.dart';
 
+class NotificationsPage extends StatefulWidget {
+
+  @override
+  _NotificationsPageState createState() => _NotificationsPageState();
+}
+
+class _NotificationsPageState extends State<NotificationsPage> {
+
+  @override
+  void initState() {
+    super.initState();
+    setState(() {
+
+    });
+  }
   @override
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
         navigationBar: CupertinoNavigationBar(
-          previousPageTitle: 'Configurări',
-          middle: Text('Notificări'),
+          previousPageTitle: Translation.of(context).navigationSettings,
+          middle: Text(Translation.of(context).settingsNotifications),
         ),
         child: Container(
             color: CupertinoTheme.of(context).scaffoldBackgroundColor,
@@ -39,7 +54,7 @@ class NotificationsPage extends StatelessWidget {
                               Container(
                                 alignment: Alignment.centerLeft,
                                 decoration: BoxDecoration(
-                                    color: CupertinoTheme.of(context).primaryColor 
+                                    color: CupertinoTheme.of(context).primaryColor
                                 ),
                                 child: Column(
                                   children: <Widget>[

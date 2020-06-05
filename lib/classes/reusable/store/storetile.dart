@@ -23,7 +23,6 @@ class _StoreTile extends State<StoreTile> {
       style: TextStyle(fontFamily: 'SF Pro Display', color: CupertinoTheme.of(context).primaryContrastingColor),
       child: Container(
         height: 70.0,
-        color: CupertinoTheme.of(context).primaryColor,
         padding: EdgeInsets.only(left: 10.0, right: 10.0,),
         child: GestureDetector(
           child: ListTile(

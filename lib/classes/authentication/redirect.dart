@@ -3,11 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import '../home.dart';
-import '../music.dart';
 import '../settings.dart';
 import '../store.dart';
-import '../tv.dart';
-
 
 class TabNavigator extends StatefulWidget {
   @override
@@ -25,8 +22,6 @@ class _TabNavigator extends State<TabNavigator> {
   static List _widgetOptions = [
     Home(),
     Store(),
-    Music(),
-    TV(),
     Settings(),
   ];
 
@@ -62,14 +57,6 @@ class _TabNavigator extends State<TabNavigator> {
                   GButton(
                     icon: Ionicons.ios_appstore,
                     text: 'Magazin',
-                  ),
-                  GButton(
-                    icon: Ionicons.ios_musical_notes,
-                    text: 'Muzica',
-                  ),
-                  GButton(
-                    icon: Ionicons.ios_albums,
-                    text: 'TV',
                   ),
                   GButton(
                     icon: Ionicons.ios_cog,

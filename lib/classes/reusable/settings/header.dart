@@ -1,3 +1,4 @@
+import '../../../locale.dart';
 import '../../settings/account/account.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -5,7 +6,20 @@ import 'package:flutter/material.dart';
 
 /// The first big header item in settings that aggregates the user's profile
 /// type data.
-class SettingsHeader extends StatelessWidget {
+class SettingsHeader extends StatefulWidget {
+  @override
+  _SettingsHeaderState createState() => _SettingsHeaderState();
+}
+
+class _SettingsHeaderState extends State<SettingsHeader> {
+
+  @override
+  void initState() {
+    super.initState();
+    setState(() {
+
+    });
+  }
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -49,7 +63,7 @@ class SettingsHeader extends StatelessWidget {
                             Text(
                               snapshot.data.displayName != null
                                   ? snapshot.data.displayName
-                                  : 'null',
+                                  : '',
                               style: TextStyle(
                                 fontSize: 21.0,
                                 fontWeight: FontWeight.w500,
@@ -58,7 +72,7 @@ class SettingsHeader extends StatelessWidget {
                             ),
                             Padding(padding: EdgeInsets.only(top: 6.0)),
                             Text(
-                              'Setările contului Hermes',
+                              Translation.of(context).hermesHint,
                               style: TextStyle(
                                 fontSize: 16.0,
                                 color: CupertinoColors.inactiveGray,
@@ -80,7 +94,10 @@ class SettingsHeader extends StatelessWidget {
                 ),
               );
             } else {
-              return Text('Se încarcă...');
+              return new Container(
+                height: 81.0,
+                color: CupertinoTheme.of(context).primaryColor,
+              );
             }
           }),
     );

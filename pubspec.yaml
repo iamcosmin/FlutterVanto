@@ -1,12 +1,14 @@
 name: Vanto
 description: Aplicația Vanto pentru Android!
-version: 6.0.0+2020053001
+version: 6.0.0+2020060501
 
 environment:
   sdk: ">=2.2.2"
 
 dependencies:
   flutter:
+    sdk: flutter
+  flutter_localizations:
     sdk: flutter
   cupertino_icons: ^0.1.2
   firebase_core: ^0.4.4+2
@@ -21,12 +23,16 @@ dependencies:
   device_info: ^0.4.2+4
   image_picker: ^0.6.6+1
   image_cropper: ^1.2.2
+  shimmer: ^1.1.1
 
 dev_dependencies:
+  flappy_translator: 
   flutter_test:
     sdk: flutter
 
 flutter:
+  assets:
+    - assets/
   uses-material-design: true
   fonts:
     - family: SF Pro Display
@@ -44,3 +50,14 @@ flutter:
         - asset: fonts/SF-Pro-Text-RegularItalic.otf
         - asset: fonts/SF-Pro-Text-Thin.otf
         - asset: fonts/SF-Pro-Text-ThinItalic.otf
+
+flappy_translator:
+  input_file_path: "assets/local/locale.csv"
+  output_dir: "lib"
+  file_name: "locale"
+  class_name: "Translation"
+  delimiter: ";"
+  start_index: 1
+  depend_on_context: true
+  use_single_quotes: false
+  replace_no_break_spaces: false

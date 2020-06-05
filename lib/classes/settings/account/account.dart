@@ -9,6 +9,7 @@ import '../../../classes/settings/account/pic.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import '../../../locale.dart';
 import 'name.dart';
 
 class AccountManager extends StatefulWidget {
@@ -25,15 +26,23 @@ class AccountManager extends StatefulWidget {
 class _AccountManagerState extends State<AccountManager> {
   Future<dynamic> _signOut(context) async {
     await FirebaseAuth.instance.signOut();
-    Navigator.pushAndRemoveUntil(context, CupertinoPageRoute(builder: (BuildContext context) => LoginSignupPage()),
-      ModalRoute.withName('/'),);
+    Navigator.popUntil(context, ModalRoute.withName('/'));
+    Navigator.pushReplacement(context, CupertinoPageRoute(builder: (BuildContext context) => LoginSignupPage()),);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    setState(() {
+
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
       navigationBar: CupertinoNavigationBar(
-        previousPageTitle: 'Configurări',
+        previousPageTitle: Translation.of(context).navigationSettings,
         middle: Text('Hermes'),
       ),
       child: Container(
@@ -61,7 +70,7 @@ class _AccountManagerState extends State<AccountManager> {
                                       snapshot.data.photoUrl != null
                                           ? Image.network(
                                               snapshot.data.photoUrl)
-                                          : Center(child: Text('N')),
+                                          : Center(child: Text('')),
                                     ],
                                   ),
                                 ),
@@ -70,7 +79,7 @@ class _AccountManagerState extends State<AccountManager> {
                             Text(
                                 snapshot.data.displayName != null
                                     ? snapshot.data.displayName
-                                    : 'Nume Nesetat',
+                                    : '',
                                 style: TextStyle(
                                   fontSize: 20.0,
                                   fontWeight: FontWeight.w500,
@@ -82,7 +91,7 @@ class _AccountManagerState extends State<AccountManager> {
                               child: Text(
                                   snapshot.data.email != null
                                       ? snapshot.data.email
-                                      : 'Ceva merge rău. Contactați administratorul.',
+                                      : '',
                                   style: TextStyle(
                                     color: CupertinoColors.inactiveGray,
                                   )),
@@ -99,7 +108,7 @@ class _AccountManagerState extends State<AccountManager> {
               <Widget>[
                 SettingsItem(
                     type: SettingsItemType.modal,
-                    label: 'Detalii Profil',
+                    label: Translation.of(context).hermesProfileDetails,
                     hasDetails: true,
                     onPress: () => Navigator.push(
                         context,
@@ -107,7 +116,7 @@ class _AccountManagerState extends State<AccountManager> {
                             builder: (context) => ProfileDetails()))),
                 SettingsItem(
                   type: SettingsItemType.modal,
-                  label: 'Parolă și Securitate',
+                  label: Translation.of(context).hermesSecurity,
                   hasDetails: true,
                   onPress: () => Navigator.push(
                       context,
@@ -118,7 +127,7 @@ class _AccountManagerState extends State<AccountManager> {
             ),
             SettingsGroup(<Widget>[
               SettingsItem(
-                label: 'Deconectare',
+                label: Translation.of(context).hermesLogout,
                 type: SettingsItemType.modal,
                 hasDetails: true,
                 onPress: () => _signOut(context),
@@ -140,11 +149,18 @@ class _ProfileDetailsState extends State<ProfileDetails> {
   String name;
 
   @override
+  void initState() {
+    super.initState();
+    setState(() {
+
+    });
+  }
+  @override
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
       navigationBar: CupertinoNavigationBar(
         previousPageTitle: 'Hermes',
-        middle: Text('Detalii Profil'),
+        middle: Text(Translation.of(context).hermesProfileDetails),
       ),
       child: Container(
         padding: EdgeInsets.only(
@@ -169,12 +185,12 @@ class _ProfileDetailsState extends State<ProfileDetails> {
                               )),
                         ),
                       ],
-                      header: Text('NUME'),
+                      header: Text(Translation.of(context).generalName.toUpperCase()),
                     ),
                     SettingsGroup(
                       <Widget>[
                         SettingsItem(
-                            label: 'Selectează altă fotografie de profil',
+                            label: Translation.of(context).hermesChangePhotoTitle,
                             type: SettingsItemType.modal,
                             hasDetails: true,
                             onPress: () => Navigator.push(
@@ -183,7 +199,7 @@ class _ProfileDetailsState extends State<ProfileDetails> {
                                   builder: (context) => ImageCapture(),
                                 )))
                       ],
-                      header: Text('FOTOGRAFIE DE PROFIL'),
+                      header: Text(Translation.of(context).generalProfilePhoto),
                     ),
                     SettingsGroup(
                       <Widget>[
@@ -199,7 +215,7 @@ class _ProfileDetailsState extends State<ProfileDetails> {
                                   ),
                                 )))
                       ],
-                      header: Text('EMAIL'),
+                      header: Text(Translation.of(context).generalEmail),
                     ),
                   ],
                 );

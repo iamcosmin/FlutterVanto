@@ -1,6 +1,8 @@
+import 'package:Vanto/locale.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'classes/authentication/splash.dart';
 
 void main() {
@@ -9,6 +11,7 @@ void main() {
     systemNavigationBarColor: Colors.transparent,
   ));
 }
+
 class MainApp extends StatefulWidget {
   @override
   _MainAppState createState() => _MainAppState();
@@ -18,9 +21,7 @@ class _MainAppState extends State<MainApp> {
   @override
   Widget build(BuildContext context) {
     return CupertinoApp(
-        title: 'Vanto',
-        debugShowCheckedModeBanner: false,
-        home: Main());
+        title: 'Vanto', debugShowCheckedModeBanner: false, home: Main());
   }
 }
 
@@ -38,32 +39,36 @@ class _MainState extends State<Main> {
     brightness: Brightness.dark,
     textTheme: CupertinoTextThemeData(
       primaryColor: CupertinoColors.activeGreen,
-      textStyle: TextStyle(color: CupertinoColors.white, fontFamily: 'SF Pro Display'),
+      textStyle:
+          TextStyle(color: CupertinoColors.white, fontFamily: 'SF Pro Display'),
     ),
   );
 
   final lightTheme = CupertinoThemeData(
-    primaryColor: CupertinoColors.white,
-    scaffoldBackgroundColor: CupertinoColors.lightBackgroundGray,
+    primaryColor: CupertinoColors.lightBackgroundGray,
+    scaffoldBackgroundColor: CupertinoColors.white,
     primaryContrastingColor: CupertinoColors.black,
     brightness: Brightness.light,
     textTheme: CupertinoTextThemeData(
       primaryColor: CupertinoColors.activeGreen,
-      textStyle: TextStyle(color: CupertinoColors.black, fontFamily: 'SF Pro Display'),
+      textStyle:
+          TextStyle(color: CupertinoColors.black, fontFamily: 'SF Pro Display'),
     ),
   );
-
-
-
-
 
   @override
   Widget build(BuildContext context) {
     bool isDark = MediaQuery.of(context).platformBrightness == Brightness.dark;
     return CupertinoApp(
-            title: 'Vanto',
-            debugShowCheckedModeBanner: false,
-            theme: isDark == true ? darkTheme : lightTheme,
-            home: new RootPage());
+        localizationsDelegates: [
+          const TranslationDelegate(),
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+        ],
+        supportedLocales: TranslationDelegate.supportedLocals,
+        title: 'Vanto',
+        debugShowCheckedModeBanner: false,
+        theme: isDark == true ? darkTheme : lightTheme,
+        home: new RootPage());
   }
 }

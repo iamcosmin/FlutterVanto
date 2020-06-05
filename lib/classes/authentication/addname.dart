@@ -11,6 +11,24 @@ class CreateNamePage extends StatefulWidget {
 class _CreateNamePageState extends State<CreateNamePage> {
   bool loading = false;
   String name;
+
+  void func() async {
+      if (name != null) {
+        setState(() {
+          loading = true;
+        });
+        FirebaseUser user = await FirebaseAuth.instance.currentUser();
+        UserUpdateInfo updateInfo = UserUpdateInfo();
+        updateInfo.displayName = name;
+        await user.updateProfile(updateInfo);
+        await user.reload();
+        user = await FirebaseAuth.instance.currentUser();
+        name = user.displayName;
+        Navigator.push(context, CupertinoPageRoute(
+            builder: (context) => CreatePicturePage()
+        ));
+      }
+  }
   @override
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
@@ -54,35 +72,6 @@ class _CreateNamePageState extends State<CreateNamePage> {
                   placeholder: 'Nume',
                   onChanged: (value) => name = value,
                 )),
-            Container(
-              alignment: Alignment.bottomCenter,
-              padding: EdgeInsets.only(top: MediaQuery.of(context).size.height - 480),
-              child: loading != true ? CupertinoButton(
-                color: Colors.green,
-                onPressed: () async {
-                  setState(() {
-                    loading = true;
-                  });
-                  FirebaseUser user = await FirebaseAuth.instance.currentUser();
-                  UserUpdateInfo updateInfo = UserUpdateInfo();
-                  updateInfo.displayName = name;
-                  await user.updateProfile(updateInfo);
-                  await user.reload();
-                  user = await FirebaseAuth.instance.currentUser();
-                  name = user.displayName;
-                  Navigator.push(context, CupertinoPageRoute(
-                    builder: (context) => CreatePicturePage()
-                  ));
-                },
-                child: Stack(
-                  children: <Widget>[
-                    Text('Aplică', style: TextStyle(fontSize: 17.0, color: CupertinoTheme.of(context).scaffoldBackgroundColor, fontWeight: FontWeight.w600)),
-                  ],
-                ),
-              ) : CircularProgressIndicator(
-                valueColor: new AlwaysStoppedAnimation<Color>(CupertinoColors.activeGreen),
-              ),
-            )
           ],
         )));
   }

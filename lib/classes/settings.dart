@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import '../locale.dart';
 import 'settings/general.dart';
 import 'settings/notifications.dart';
 import 'reusable/settings/group.dart';
@@ -12,6 +13,14 @@ class Settings extends StatefulWidget {
 }
 
 class SettingsScreen extends State<Settings> {
+
+  @override
+  void initState() {
+    super.initState();
+    setState(() {
+
+    });
+  }
   @override
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
@@ -22,7 +31,7 @@ class SettingsScreen extends State<Settings> {
             child: CustomScrollView(
             slivers: <Widget>[
               CupertinoSliverNavigationBar(
-                largeTitle: Text('Configurări'),
+                largeTitle: Text(Translation.of(context).navigationSettings),
                 leading: new Container(),
               ),
               SliverSafeArea(
@@ -36,14 +45,14 @@ class SettingsScreen extends State<Settings> {
                       ]),
                       SettingsGroup(<Widget>[
                         SettingsItem(
-                          label: 'Aparență',
+                          label: Translation.of(context).settingsAppearance,
                           iconAssetLabel: 'https://developer.apple.com/design/human-interface-guidelines/ios/images/icons/app_icons/Photos.png',
                           type: SettingsItemType.modal,
                           hasDetails: false,
-                          value: MediaQuery.of(context).platformBrightness == Brightness.light ? 'Luminos' : 'Întunecat',
+                          value: MediaQuery.of(context).platformBrightness == Brightness.light ? Translation.of(context).settingsAppearanceLight : Translation.of(context).settingsAppearanceDark,
                         ),
                         SettingsItem(
-                          label: 'General',
+                          label: Translation.of(context).settingsGeneral,
                           iconAssetLabel: 'https://developer.apple.com/design/human-interface-guidelines/ios/images/icons/app_icons/Settings.png',
                           type: SettingsItemType.modal,
                           hasDetails: true,
@@ -54,7 +63,7 @@ class SettingsScreen extends State<Settings> {
                       ]),
                       SettingsGroup(<Widget>[
                         SettingsItem(
-                          label: 'Notificări',
+                          label: Translation.of(context).settingsNotifications,
                           iconAssetLabel: 'https://developer.apple.com/design/human-interface-guidelines/ios/images/icons/app_icons/Mail.png',
                           type: SettingsItemType.modal,
                           hasDetails: true,

@@ -1,0 +1,47 @@
+﻿keys;en;ro
+homeWelcome;Hi;Bună
+navigationStore;Store;Magazin
+storeCategoryGame;Game;Joc
+storeCategoryMovie;Movie;Film
+storeCategorySeries;Series;Serial
+storeCategoryMusic;Song;Melodie
+storeCategoryExclusive;Exclusive;Exclusiv
+storeObtain;Obtain;Obține
+navigationBack;Back;Înapoi
+navigationNext;Next;Înainte
+navigationDone;Done;Gata
+navigationSettings;Settings;Configurări
+hermesHint;Hermes account settings;Setările contului Hermes
+settingsAppearance;Appearance;Aparență
+settingsAppearanceLight;Light;Luminos
+settingsAppearanceDark;Dark;Întunecat
+settingsGeneral;General;General
+settingsGeneralInfo;Information;Informații
+settingsGeneralUpdates;Updates;Actualizări
+settingsNotifications;Notifications;Notificări
+hermesProfileDetails;Profile Details;Detalii Profil
+hermesSecurity;Password and Security;Parolă și Securitate
+hermesLogout;Logout;Deconectare
+hermesLogin;Login;Autentificare
+hermesNoAccount;Don't have an account? Create one!;Nu ai cont? Crează unul!
+hermesYesAccount;Have an account already? Login!;Ai cont deja? Conectează-te!
+generalError;Error;Eroare
+generalEmail;Email;Email
+generalPassword;Password;Parolă
+generalName;Name;Nume
+setupNameTitle;What's your name?;Cum te numești?
+setupNameSubtitle;Confirm;Confirmă
+generalApply;Apply;Aplică
+setupProfilePhotoTitle;Show us how beautiful you are!;Arată-ne cât ești de frumos!
+setupProfilePhotoSubtitle;Upload a profile picture to suit your needs!;Încarcă o imagine de profil pentru a se potrivi nevoilor tale!
+setupProfilePhotoButton;Choose image;Alege imagine
+setupProfilePhotoEdit;Edit image;Editare imagine
+hermesReAuthTitle;Enter your password;Reintroduceți parola
+hermesReAuthSubtitle;For authorizing this settings, please re-enter your password!;Pentru a autoriza această setare, vă rugăm reintroduceți-vă parola!
+hermesChangeEmailTitle;Change email;Schimbă emailul
+hermesChangeEmailSubtitle;Enter a valid email, you can reset your password if you forgot with it.;Introdu un email valid, veți putea reseta parola în caz că nu o știți cu ajutorul acestuia!
+hermesChangePasswordTitle;Choose a new password;Creați o parolă nouă
+hermesChangePasswordSubtitle;Your password needs to have minimum 6 characters!;Parola dumneavoastră trebuie să aibă minimum 6 caractere!
+hermesDestroyTitle;Delete account;Șterge contul
+hermesDestroySubtitle;Are you sure you want to delete your accont? This action is irreversible!;Ești sigur că dorești sa îți ștergi contul? Această acțiune este ireversibilă!
+hermesDestroyButton;DELETE ACCOUNT;ȘTERGE CONTUL
