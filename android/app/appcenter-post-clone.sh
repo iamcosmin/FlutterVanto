@@ -1,21 +1,30 @@
 #!/usr/bin/env bash
-# place this script in project/android/app/
+#Place this script in project/android/app/
+
 cd ..
+
 # fail if any command fails
 set -e
 # debug log
 set -x
 
 cd ..
-# choose a different release channel if you want - https://github.com/flutter/flutter/wiki/Flutter-build-release-channels
-# stable - recommended for production
-
 git clone -b beta https://github.com/flutter/flutter.git
+
+echo "Flutter este descarcat."
+
 export PATH=`pwd`/flutter/bin:$PATH
 
-flutter channel beta
-flutter doctor
-flutter build apppbundle
+echo "Variabila adaugata"
 
-# copy the APK where AppCenter will find it
-mkdir -p android/app/build/outputs/bundle/; mv build/app/outputs/bundle/release/app-release.aab $_<
+flutter channel beta
+echo "Comutat la beta."
+flutter doctor
+
+echo "Installed flutter to `pwd`/flutter"
+
+flutter build appbundle
+
+echo "Aplicatie construita."
+
+mkdir -p android/app/build/outputs/bundle/; mv build/app/outputs/bundle/release/app.aab $_
