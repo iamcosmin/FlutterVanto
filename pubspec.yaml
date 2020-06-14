@@ -26,7 +26,7 @@ dependencies:
   shimmer: ^1.1.1
 
 dev_dependencies:
-  flappy_translator: 
+  flappy_translator:
   flutter_test:
     sdk: flutter
 
@@ -35,21 +35,26 @@ flutter:
     - assets/
   uses-material-design: true
   fonts:
-    - family: SF Pro Display
+    - family: Inter
       fonts:
-        - asset: fonts/SF-Pro-Text-Black.otf
-        - asset: fonts/SF-Pro-Text-Bold.otf
-        - asset: fonts/SF-Pro-Text-Semibold.otf
-        - asset: fonts/SF-Pro-Text-BoldItalic.otf
-        - asset: fonts/SF-Pro-Text-Heavy.otf
-        - asset: fonts/SF-Pro-Text-Light.otf
-        - asset: fonts/SF-Pro-Text-LightItalic.otf
-        - asset: fonts/SF-Pro-Text-Medium.otf
-        - asset: fonts/SF-Pro-Text-MediumItalic.otf
-        - asset: fonts/SF-Pro-Text-Regular.otf
-        - asset: fonts/SF-Pro-Text-RegularItalic.otf
-        - asset: fonts/SF-Pro-Text-Thin.otf
-        - asset: fonts/SF-Pro-Text-ThinItalic.otf
+        - asset: fonts/Inter-Black.otf
+        - asset: fonts/Inter-BlackItalic.otf
+        - asset: fonts/Inter-Bold.otf
+        - asset: fonts/Inter-BoldItalic.otf
+        - asset: fonts/Inter-Semibold.otf
+        - asset: fonts/Inter-SemiboldItalic.otf
+        - asset: fonts/Inter-ExtraBold.otf
+        - asset: fonts/Inter-ExtraBoldItalic.otf
+        - asset: fonts/Inter-Light.otf
+        - asset: fonts/Inter-LightItalic.otf
+        - asset: fonts/Inter-ExtraLight.otf
+        - asset: fonts/Inter-ExtraLightItalic.otf
+        - asset: fonts/Inter-Medium.otf
+        - asset: fonts/Inter-MediumItalic.otf
+        - asset: fonts/Inter-Regular.otf
+        - asset: fonts/Inter-Italic.otf
+        - asset: fonts/Inter-Thin.otf
+        - asset: fonts/Inter-ThinItalic.otf
 
 flappy_translator:
   input_file_path: "assets/local/locale.csv"
