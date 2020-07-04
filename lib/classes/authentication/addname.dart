@@ -1,6 +1,8 @@
+import 'package:Vanto/classes/reusable/trailing.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import '../../locale.dart';
 import 'addpicture.dart';
 
 class CreateNamePage extends StatefulWidget {
@@ -32,13 +34,17 @@ class _CreateNamePageState extends State<CreateNamePage> {
   @override
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
+      navigationBar: CupertinoNavigationBar(
+        trailing: TrailingHelper(generate: func, loader: loading, last: false),
+        backgroundColor: Color(0xFF000000),
+      ),
         child: SafeArea(
             child: ListView(
           children: <Widget>[
             Container(
               alignment: Alignment.topCenter,
               padding: EdgeInsets.only(top: 80.0),
-              child: Text('Cum te numești?',
+              child: Text(Translation.of(context).setupNameTitle,
                   style:
                       TextStyle(fontSize: 30.0, fontWeight: FontWeight.bold)),
             ),
@@ -47,7 +53,7 @@ class _CreateNamePageState extends State<CreateNamePage> {
                 alignment: Alignment.topCenter,
                 padding: EdgeInsets.only(top: 20.0, left: 20.0, right: 20.0),
                 child:
-                    Text('Personalizează-ți contul Hermes punându-ți un nume!',
+                    Text(Translation.of(context).setupNameSubtitle,
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontSize: 17.0,
@@ -65,11 +71,12 @@ class _CreateNamePageState extends State<CreateNamePage> {
                   style: TextStyle(
                     color: CupertinoTheme.of(context).primaryContrastingColor,
                     fontSize: 20.0,
+                    fontFamily: 'Roboto',
                   ),
                   prefix: Padding(
                     padding: EdgeInsets.only(left: 10.0),
                   ),
-                  placeholder: 'Nume',
+                  placeholder: Translation.of(context).generalName,
                   onChanged: (value) => name = value,
                 )),
           ],

@@ -25,7 +25,7 @@ class SettingsScreen extends State<Settings> {
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
       child: DefaultTextStyle(
-        style: TextStyle(fontFamily: 'SF Pro Display'),
+        style: TextStyle(fontFamily: 'Inter'),
         child: Container(
             color: CupertinoTheme.of(context).scaffoldBackgroundColor,
             child: CustomScrollView(

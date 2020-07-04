@@ -1,11 +1,10 @@
 ﻿keys;en;ro;de
 homeWelcome;Hi;Bună;Hallo
-navigationStore;Store;Magazin;App-Markt
+navigationStore;Store;Magazin;Markt
 storeCategoryGame;Game;Joc;Spiele
 storeCategoryMovie;Movie;Film;Filme
 storeCategorySeries;Series;Serial;Serie
-storeCategoryMusic;Song;Melodie;Musik
-storeCategoryExclusive;Exclusive;Exclusiv;Exklusive Apps
+storeCategoryExclusive;Exclusive;Exclusiv;Exklusive
 storeObtain;Obtain;Obține;Laden
 navigationBack;Back;Înapoi;Zurück
 navigationNext;Next;Înainte;Weiter
@@ -30,8 +29,8 @@ generalEmail;Email;Email;Email
 generalPassword;Password;Parolă;Passwort
 generalName;Name;Nume;Name
 setupNameTitle;What's your name?;Cum te numești?;Wie ist dein Name?
-setupNameSubtitle;Confirm;Confirmă;Bestätigen
-generalApply;Apply;Aplică;
+setupNameSubtitle;This will personalize your account later.;Acesta îți va personaliza contul mai târziu!;Das wird dein Konto später bearbeiten!
+generalApply;Apply;Aplică;Wählen
 setupProfilePhotoTitle;Show us how beautiful you are!;Arată-ne cât ești de frumos!;Zeige uns wie schön du bist und wähle dein Profilbild!
 setupProfilePhotoSubtitle;Upload a profile picture to suit your needs!;Încarcă o imagine de profil pentru a se potrivi nevoilor tale!;Probiere ein Profilbild um dein Account schöner zu gestalten!
 setupProfilePhotoButton;Choose image;Alege imagine;Profilbild auswählen
@@ -45,6 +44,31 @@ hermesChangePasswordSubtitle;Your password needs to have minimum 6 characters!;P
 hermesDestroyTitle;Delete account;Șterge contul;Account löschen
 hermesDestroySubtitle;Are you sure you want to delete your accont? This action is irreversible!;Ești sigur că dorești sa îți ștergi contul? Această acțiune este ireversibilă!;Sind Sie sicher dass Sie Ihren Account löschen möchten? Sie können das dann nicht mehr abbrechen.
 hermesDestroyButton;DELETE ACCOUNT;ȘTERGE CONTUL;ACCOUNT LÖSCHEN
-generalProfilePhoto;Profile Photo;Fotografie de Profil;
-hermesChangePhotoTitle;Select a picture;Selectează o imagine;
-hermesChangePhotoSubtitle;This photo will be your profile picture.;Această fotografie va fi imaginea de profil.;
+generalProfilePhoto;Profile Photo;Fotografie de Profil;Profilbild
+hermesChangePhotoTitle;Select a picture;Selectează o imagine;Foto auswählen
+hermesChangePhotoSubtitle;This photo will be your profile picture.;Această fotografie va fi imaginea de profil.;Dieses Foto wird dein Profilbild sein.
+navigationHome;Home;Acasă;Startseite
+generalBalance;Balance;Balanță;Münzen
+storeApps;Apps;Aplicații;Apps
+storeGames;Games;Jocuri;Spiele
+storeMovies;Movies;Filme;Filme
+storeExclusive;Exclusive;Exclusiv;Exklusive Apps
+infoName;Name;Nume;Name
+infoVersion;Version;Versiune;Version
+infoCode;Code;Cod;Code
+infoPackage;Package;Pachet;Packung
+infoDevice;Device;Dispozitiv;Gerät
+updateNotice;Check for updates in Google Play;Căutați actualizări în Google Play;Suchen nach Updates in Google Play
+errorBadTyping;Check typo;Greșeală de scriere;Rechtshreibfehler überprüfen
+generalRetry;Retry;Reîncearcă;Nochmal versuchen
+storeSheetTitle;- Options;- Opțiuni;Optionen
+storeSheetSubtitle;Choose an option from the ones below;Alegeți o opțiune din cele de mai jos;- Wählen Sie eine Option von der runter-aufgezählten
+generalReport;Report a problem;Raportează o problemă;Ein Fehler melden
+generalCancel;Cancel;Anulează;Abbrechen
+generalPreview;Preview;Previzualizare;Vorschau
+hermesCreateAccount;Create account;Creează cont;Erstelle ein Konto
+errorMaintenanceTitle;Maintenance break!;Mentenanță în curs!;Wartungsarbeiten
+errorMaintenanceSubtitle;The servers are under maintenance. Please try again later!;Serverele sunt sub mentenanță. Vă rugăm să încercați mai târziu!;Die Server werden derzeit gewartet. Bitte versuche es später erneut.
+errorBannedTitle;You have been banned!;Ai fost banat!;Vom Spiel gebannt!
+errorBannedSubtitle;Your account has been permanently banned! In case you think this is a mistake, use the appeal button.;Contul tău a fost banat permanent. În cazul în care crezi că e o greșeală, apasă butonul contestă.;
+errorBannedAppeal;Appeal;Contestă;Anzeige

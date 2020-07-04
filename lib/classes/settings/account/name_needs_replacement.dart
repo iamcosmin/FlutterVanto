@@ -3,6 +3,8 @@ import 'package:Vanto/tools/touch.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 
+import '../../../locale.dart';
+
 // ignore: must_be_immutable
 class ChangeNamePage extends StatefulWidget {
   @override
@@ -24,6 +26,7 @@ class _ChangeNamePageState extends State<ChangeNamePage> {
               children: <Widget>[
                 loading != true ? TouchableOpacity(
                     onTap: () async {
+                      Translation translation = Translation.of(context);
                       if (name != null) {
                         setState(() {
                           loading = true;
@@ -44,7 +47,7 @@ class _ChangeNamePageState extends State<ChangeNamePage> {
                             CupertinoAlertDialog(
                               title: Text('Atenție!',
                                   style: TextStyle(
-                                      fontFamily: 'SF Pro Display',
+                                      fontFamily: 'Inter',
                                       letterSpacing: -0.5,
                                       fontSize: 17.0)),
                               content: Container(
@@ -52,14 +55,14 @@ class _ChangeNamePageState extends State<ChangeNamePage> {
                                   child: Text(
                                     'Introduceți-vă numele!',
                                     style: TextStyle(
-                                        fontFamily: 'SF Pro Display',
+                                        fontFamily: 'Inter',
                                         fontSize: 15.0),
                                   )),
                               actions: <Widget>[
                                 CupertinoDialogAction(
-                                  child: Text('Reîncearcă',
+                                  child: Text(translation.generalRetry,
                                       style: TextStyle(
-                                          fontFamily: 'SF Pro Display',
+                                          fontFamily: 'Inter',
                                           fontSize: 17.0)),
                                   onPressed: () => Navigator.pop(context),
                                   isDefaultAction: true,
@@ -96,6 +99,7 @@ class _ChangeNamePageState extends State<ChangeNamePage> {
                     style: TextStyle(
                       color: CupertinoTheme.of(context).primaryContrastingColor,
                       fontSize: 20.0,
+                      fontFamily: 'Roboto',
                     ),
                     placeholder: 'Nume',
                     cursorColor: CupertinoColors.activeGreen,

@@ -2,6 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:url_launcher/url_launcher.dart';
+import '../../locale.dart';
 import '../home.dart';
 import '../settings.dart';
 import '../store.dart';
@@ -17,6 +21,100 @@ class TabNavigator extends StatefulWidget {
 }
 
 class _TabNavigator extends State<TabNavigator> {
+  Future verifyMaintenance() async {
+    Translation translation = await Translation.of(context);
+    Firestore.instance.collection('settings').document('status').get().then((value) {
+      if (value.exists) {
+        if (value.data['maintenance'] != false) {
+          showCupertinoDialog(
+              context: context,
+              builder: (context) => WillPopScope(
+                onWillPop: () async => false,
+                child: CupertinoAlertDialog(
+                  title: Text(
+                      translation.errorMaintenanceTitle,
+                      style: TextStyle(
+                          fontFamily: 'Inter',
+                          letterSpacing: -0.5,
+                          fontSize: 17.0)),
+                  content: Container(
+                      padding: EdgeInsets.only(top: 10.0),
+                      child: Text(
+                        translation.errorMaintenanceSubtitle,
+                        style: TextStyle(
+                            fontFamily: 'Inter', fontSize: 15.0),
+                      )),
+                  actions: <Widget>[
+                    CupertinoDialogAction(
+                      child: Text(translation.generalRetry,
+                          style: TextStyle(
+                              fontFamily: 'Inter', fontSize: 17.0)),
+                      onPressed: () {verifyMaintenance(); Navigator.pop(context);},
+                    )
+                  ],
+                ),
+              ));
+        } else {
+          verifyBan();
+        }
+      }
+    });
+
+  }
+
+  Future verifyBan() async {
+    FirebaseUser user = await FirebaseAuth.instance.currentUser();
+    Translation translation = await Translation.of(context);
+    Firestore.instance.collection('users').document(user.email).get().then((value) {
+      if (value.exists) {
+        if (value.data['banned'] != false && value.data['banned'] != null) {
+          showCupertinoDialog(
+              context: context,
+              builder: (context) => WillPopScope(
+                onWillPop: () async => false,
+                child: CupertinoAlertDialog(
+                  title: Text(translation.errorBannedTitle,
+                      style: TextStyle(
+                          fontFamily: 'Inter',
+                          letterSpacing: -0.5,
+                          fontSize: 17.0)),
+                  content: Container(
+                      padding: EdgeInsets.only(top: 10.0),
+                      child: Text(
+                        translation.errorBannedSubtitle,
+                        style: TextStyle(
+                            fontFamily: 'Inter', fontSize: 15.0),
+                      )),
+                  actions: <Widget>[
+                    CupertinoDialogAction(
+                      child: Text(translation.errorBannedAppeal,
+                          style: TextStyle(
+                              fontFamily: 'Inter', fontSize: 17.0)),
+                      onPressed: () {launch('https://github.com/iamcosmin/Vanto-Flutter/issues');},
+                    ),
+                    CupertinoDialogAction(
+                      child: Text(translation.generalRetry,
+                          style: TextStyle(
+                              fontFamily: 'Inter', fontSize: 17.0)),
+                      onPressed: () {verifyBan(); Navigator.pop(context);},
+                    )
+                  ],
+                ),
+              ));
+        }
+      }
+    });
+  }
+ @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  didChangeDependencies() {
+    super.didChangeDependencies();
+    verifyMaintenance();
+  }
 
   int _selectedIndex = 0;
   static List _widgetOptions = [
@@ -52,15 +150,15 @@ class _TabNavigator extends State<TabNavigator> {
                 tabs: [
                   GButton(
                     icon: Ionicons.ios_home,
-                    text: 'Acasă',
+                    text: Translation.of(context).navigationHome,
                   ),
                   GButton(
                     icon: Ionicons.ios_appstore,
-                    text: 'Magazin',
+                    text: Translation.of(context).navigationStore,
                   ),
                   GButton(
                     icon: Ionicons.ios_cog,
-                    text: 'Configurări',
+                    text: Translation.of(context).navigationSettings,
                   ),
                 ],
                 selectedIndex: _selectedIndex,

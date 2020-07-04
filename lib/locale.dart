@@ -15,8 +15,6 @@ class Translation {
 
   String get storeCategorySeries => _getText("storeCategorySeries");
 
-  String get storeCategoryMusic => _getText("storeCategoryMusic");
-
   String get storeCategoryExclusive => _getText("storeCategoryExclusive");
 
   String get storeObtain => _getText("storeObtain");
@@ -98,13 +96,61 @@ class Translation {
 
   String get hermesDestroyButton => _getText("hermesDestroyButton");
 
-  String get navigationTV => _getText("navigationTV");
-
   String get generalProfilePhoto => _getText("generalProfilePhoto");
 
   String get hermesChangePhotoTitle => _getText("hermesChangePhotoTitle");
 
   String get hermesChangePhotoSubtitle => _getText("hermesChangePhotoSubtitle");
+
+  String get navigationHome => _getText("navigationHome");
+
+  String get generalBalance => _getText("generalBalance");
+
+  String get storeApps => _getText("storeApps");
+
+  String get storeGames => _getText("storeGames");
+
+  String get storeMovies => _getText("storeMovies");
+
+  String get storeExclusive => _getText("storeExclusive");
+
+  String get infoName => _getText("infoName");
+
+  String get infoVersion => _getText("infoVersion");
+
+  String get infoCode => _getText("infoCode");
+
+  String get infoPackage => _getText("infoPackage");
+
+  String get infoDevice => _getText("infoDevice");
+
+  String get updateNotice => _getText("updateNotice");
+
+  String get errorBadTyping => _getText("errorBadTyping");
+
+  String get generalRetry => _getText("generalRetry");
+
+  String get storeSheetTitle => _getText("storeSheetTitle");
+
+  String get storeSheetSubtitle => _getText("storeSheetSubtitle");
+
+  String get generalReport => _getText("generalReport");
+
+  String get generalCancel => _getText("generalCancel");
+
+  String get generalPreview => _getText("generalPreview");
+
+  String get hermesCreateAccount => _getText("hermesCreateAccount");
+
+  String get errorMaintenanceTitle => _getText("errorMaintenanceTitle");
+
+  String get errorMaintenanceSubtitle => _getText("errorMaintenanceSubtitle");
+
+  String get errorBannedTitle => _getText("errorBannedTitle");
+
+  String get errorBannedSubtitle => _getText("errorBannedSubtitle");
+
+  String get errorBannedAppeal => _getText("errorBannedAppeal");
 
   static Map<String, String> _localizedValues;
 
@@ -114,7 +160,6 @@ class Translation {
     "storeCategoryGame": "Game",
     "storeCategoryMovie": "Movie",
     "storeCategorySeries": "Series",
-    "storeCategoryMusic": "Song",
     "storeCategoryExclusive": "Exclusive",
     "storeObtain": "Obtain",
     "navigationBack": "Back",
@@ -140,7 +185,7 @@ class Translation {
     "generalPassword": "Password",
     "generalName": "Name",
     "setupNameTitle": "What's your name?",
-    "setupNameSubtitle": "Confirm",
+    "setupNameSubtitle": "This will personalize your account later.",
     "generalApply": "Apply",
     "setupProfilePhotoTitle": "Show us how beautiful you are!",
     "setupProfilePhotoSubtitle": "Upload a profile picture to suit your needs!",
@@ -159,10 +204,36 @@ class Translation {
     "hermesDestroySubtitle":
         "Are you sure you want to delete your accont? This action is irreversible!",
     "hermesDestroyButton": "DELETE ACCOUNT",
-    "navigationTV": "TV",
     "generalProfilePhoto": "Profile Photo",
     "hermesChangePhotoTitle": "Select a picture",
     "hermesChangePhotoSubtitle": "This photo will be your profile picture.",
+    "navigationHome": "Home",
+    "generalBalance": "Balance",
+    "storeApps": "Apps",
+    "storeGames": "Games",
+    "storeMovies": "Movies",
+    "storeExclusive": "Exclusive",
+    "infoName": "Name",
+    "infoVersion": "Version",
+    "infoCode": "Code",
+    "infoPackage": "Package",
+    "infoDevice": "Device",
+    "updateNotice": "Check for updates in Google Play",
+    "errorBadTyping": "Check typo",
+    "generalRetry": "Retry",
+    "storeSheetTitle": "- Options",
+    "storeSheetSubtitle": "Choose an option from the ones below",
+    "generalReport": "Report a problem",
+    "generalCancel": "Cancel",
+    "generalPreview": "Preview",
+    "hermesCreateAccount": "Create account",
+    "errorMaintenanceTitle": "Maintenance break!",
+    "errorMaintenanceSubtitle":
+        "The servers are under maintenance. Please try again later!",
+    "errorBannedTitle": "You have been banned!",
+    "errorBannedSubtitle":
+        "Your account has been permanently banned! In case you think this is a mistake, use the appeal button.",
+    "errorBannedAppeal": "Appeal",
   };
 
   static Map<String, String> _roValues = {
@@ -171,7 +242,6 @@ class Translation {
     "storeCategoryGame": "Joc",
     "storeCategoryMovie": "Film",
     "storeCategorySeries": "Serial",
-    "storeCategoryMusic": "Melodie",
     "storeCategoryExclusive": "Exclusiv",
     "storeObtain": "Obține",
     "navigationBack": "Înapoi",
@@ -197,7 +267,7 @@ class Translation {
     "generalPassword": "Parolă",
     "generalName": "Nume",
     "setupNameTitle": "Cum te numești?",
-    "setupNameSubtitle": "Confirmă",
+    "setupNameSubtitle": "Acesta îți va personaliza contul mai târziu!",
     "generalApply": "Aplică",
     "setupProfilePhotoTitle": "Arată-ne cât ești de frumos!",
     "setupProfilePhotoSubtitle":
@@ -217,20 +287,45 @@ class Translation {
     "hermesDestroySubtitle":
         "Ești sigur că dorești sa îți ștergi contul? Această acțiune este ireversibilă!",
     "hermesDestroyButton": "ȘTERGE CONTUL",
-    "navigationTV": "TV",
     "generalProfilePhoto": "Fotografie de Profil",
     "hermesChangePhotoTitle": "Selectează o imagine",
     "hermesChangePhotoSubtitle": "Această fotografie va fi imaginea de profil.",
+    "navigationHome": "Acasă",
+    "generalBalance": "Balanță",
+    "storeApps": "Aplicații",
+    "storeGames": "Jocuri",
+    "storeMovies": "Filme",
+    "storeExclusive": "Exclusiv",
+    "infoName": "Nume",
+    "infoVersion": "Versiune",
+    "infoCode": "Cod",
+    "infoPackage": "Pachet",
+    "infoDevice": "Dispozitiv",
+    "updateNotice": "Căutați actualizări în Google Play",
+    "errorBadTyping": "Greșeală de scriere",
+    "generalRetry": "Reîncearcă",
+    "storeSheetTitle": "- Opțiuni",
+    "storeSheetSubtitle": "Alegeți o opțiune din cele de mai jos",
+    "generalReport": "Raportează o problemă",
+    "generalCancel": "Anulează",
+    "generalPreview": "Previzualizare",
+    "hermesCreateAccount": "Creează cont",
+    "errorMaintenanceTitle": "Mentenanță în curs!",
+    "errorMaintenanceSubtitle":
+        "Serverele sunt sub mentenanță. Vă rugăm să încercați mai târziu!",
+    "errorBannedTitle": "Ai fost banat!",
+    "errorBannedSubtitle":
+        "Contul tău a fost banat permanent. În cazul în care crezi că e o greșeală, apasă butonul contestă.",
+    "errorBannedAppeal": "Contestă",
   };
 
   static Map<String, String> _deValues = {
     "homeWelcome": "Hallo",
-    "navigationStore": "App-Markt",
+    "navigationStore": "Markt",
     "storeCategoryGame": "Spiele",
     "storeCategoryMovie": "Filme",
     "storeCategorySeries": "Serie",
-    "storeCategoryMusic": "Musik",
-    "storeCategoryExclusive": "Exklusive Apps",
+    "storeCategoryExclusive": "Exklusive",
     "storeObtain": "Laden",
     "navigationBack": "Zurück",
     "navigationNext": "Weiter",
@@ -255,8 +350,8 @@ class Translation {
     "generalPassword": "Passwort",
     "generalName": "Name",
     "setupNameTitle": "Wie ist dein Name?",
-    "setupNameSubtitle": "Bestätigen",
-    "generalApply": "Apply",
+    "setupNameSubtitle": "Das wird dein Konto später bearbeiten!",
+    "generalApply": "Wählen",
     "setupProfilePhotoTitle":
         "Zeige uns wie schön du bist und wähle dein Profilbild!",
     "setupProfilePhotoSubtitle":
@@ -276,10 +371,37 @@ class Translation {
     "hermesDestroySubtitle":
         "Sind Sie sicher dass Sie Ihren Account löschen möchten? Sie können das dann nicht mehr abbrechen.",
     "hermesDestroyButton": "ACCOUNT LÖSCHEN",
-    "navigationTV": "TV",
-    "generalProfilePhoto": "Profile Photo",
-    "hermesChangePhotoTitle": "Select a picture",
-    "hermesChangePhotoSubtitle": "This photo will be your profile picture.",
+    "generalProfilePhoto": "Profilbild",
+    "hermesChangePhotoTitle": "Foto auswählen",
+    "hermesChangePhotoSubtitle": "Dieses Foto wird dein Profilbild sein.",
+    "navigationHome": "Startseite",
+    "generalBalance": "Münzen",
+    "storeApps": "Apps",
+    "storeGames": "Spiele",
+    "storeMovies": "Filme",
+    "storeExclusive": "Exklusive Apps",
+    "infoName": "Name",
+    "infoVersion": "Version",
+    "infoCode": "Code",
+    "infoPackage": "Packung",
+    "infoDevice": "Gerät",
+    "updateNotice": "Suchen nach Updates in Google Play",
+    "errorBadTyping": "Rechtshreibfehler überprüfen",
+    "generalRetry": "Nochmal versuchen",
+    "storeSheetTitle": "Optionen",
+    "storeSheetSubtitle":
+        "- Wählen Sie eine Option von der runter-aufgezählten",
+    "generalReport": "Ein Fehler melden",
+    "generalCancel": "Abbrechen",
+    "generalPreview": "Vorschau",
+    "hermesCreateAccount": "Erstelle ein Konto",
+    "errorMaintenanceTitle": "Wartungsarbeiten",
+    "errorMaintenanceSubtitle":
+        "Die Server werden derzeit gewartet. Bitte versuche es später erneut.",
+    "errorBannedTitle": "Vom Spiel gebannt!",
+    "errorBannedSubtitle":
+        "Your account has been permanently banned! In case you think this is a mistake, use the appeal button.",
+    "errorBannedAppeal": "Anzeige",
   };
 
   static Map<String, Map<String, String>> _allValues = {

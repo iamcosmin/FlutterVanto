@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../../locale.dart';
+
 
 class Details extends StatelessWidget {
   final String title;
@@ -16,10 +18,10 @@ class Details extends StatelessWidget {
     return CupertinoPageScaffold(
       navigationBar: CupertinoNavigationBar(
         middle: Text(this.title),
-        previousPageTitle: 'Înapoi',
+        previousPageTitle: Translation.of(context).navigationBack,
       ),
       child: DefaultTextStyle(
-        style: TextStyle(fontFamily: 'SF Pro Display'),
+        style: TextStyle(fontFamily: 'Inter'),
         child: SafeArea(
           top: false,
           bottom: false,
@@ -70,7 +72,7 @@ class Details extends StatelessWidget {
                                 padding: const EdgeInsets.symmetric(horizontal: 24.0),
                                 borderRadius: BorderRadius.circular(32.0),
                                 child: Text(
-                                  'OBȚINE',
+                                  Translation.of(context).storeObtain.toUpperCase(),
                                   style: TextStyle(
                                     fontSize: 14.0,
                                     fontWeight: FontWeight.w700,
@@ -89,18 +91,19 @@ class Details extends StatelessWidget {
                                 borderRadius: BorderRadius.circular(32.0),
                                 child: Icon(CupertinoIcons.ellipsis, color: CupertinoTheme.of(context).primaryColor),
                                 onPressed: () {
+                                  Translation translation = Translation.of(context);
                                   showCupertinoModalPopup(
                                     context: context, builder: (BuildContext context) => CupertinoActionSheet(
-                                    title: Text(this.title + ' - Opțiuni'),
-                                    message: Text('Alegeți o opțiune din cele de mai jos'),
+                                    title: Text(this.title + translation.storeSheetTitle),
+                                    message: Text(translation.storeSheetSubtitle),
                                     actions: <Widget>[
                                       CupertinoActionSheetAction(
-                                        child: Text('Raportează o problemă'),
+                                        child: Text(translation.generalReport),
                                         onPressed: () {launch('https://t.me/iamcosmin');},
                                       )
                                     ],
                                     cancelButton: CupertinoActionSheetAction(
-                                      child: const Text('Anulează'),
+                                      child: Text(translation.generalCancel),
                                       isDestructiveAction: true,
                                       onPressed: () {
                                         Navigator.pop(context, 'Cancel');

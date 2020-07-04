@@ -1,6 +1,8 @@
 import 'package:Vanto/tools/touch.dart';
 import 'package:flutter/cupertino.dart';
 
+import '../../locale.dart';
+
 
 class TrailingHelper extends StatefulWidget {
   TrailingHelper({
@@ -23,7 +25,7 @@ class _TrailingHelperState extends State<TrailingHelper> {
       children: <Widget>[
         widget.loader != true ? TouchableOpacity(
             onTap: widget.generate,
-            child: Text(widget.last != true ? 'Înainte' : 'Gata',
+            child: Text(widget.last != true ? Translation.of(context).navigationNext : Translation.of(context).navigationDone,
                 style: TextStyle(
                     color: CupertinoColors.activeGreen,
                     fontSize: 17,

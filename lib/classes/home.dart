@@ -1,5 +1,6 @@
-import 'package:Vanto/locale.dart';
-import 'package:Vanto/tools/short.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+
+import '../locale.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
@@ -10,66 +11,143 @@ class Home extends StatefulWidget {
 }
 
 class HomeScreen extends State<Home> {
-  @override
-  void initState() {
-    super.initState();
-  }
+
+
   @override
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
         child: DefaultTextStyle(
-          style: TextStyle(fontFamily: 'SF Pro Display'),
-          child: FutureBuilder(
-              future: FirebaseAuth.instance.currentUser(),
-              builder: (context, AsyncSnapshot<FirebaseUser> snapshot) {
-                if (snapshot.hasData)
-                  return CustomScrollView(slivers: <Widget>[
-                    CupertinoSliverNavigationBar(
-                      largeTitle: Text('Bună, ${snapshot.data.displayName}!'),
-                    ),
-                    SliverPadding(
-                        padding: EdgeInsets.all(10.0),
-                        sliver: SliverList(
-                            delegate: SliverChildBuilderDelegate(
-                                  (BuildContext context, int index) {
-                                return Column(children: <Widget>[
+      style: TextStyle(fontFamily: 'Inter'),
+      child: FutureBuilder(
+          future: FirebaseAuth.instance.currentUser(),
+          builder: (context, AsyncSnapshot<FirebaseUser> authSnapshot) {
+            if (authSnapshot.hasData) {
+                  return SafeArea(
+                    child: ListView(
+                      children: <Widget>[
+                        Padding(
+                            padding: EdgeInsets.only(
+                              top: 25.0,
+                              left: 25.0,
+                            ),
+                            child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: <Widget>[
+                                  Text(
+                                     Translation.of(context).navigationHome,
+                                    style: TextStyle(
+                                        color: CupertinoColors.white,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 30),
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsets.only(right: 25.0),
+                                    child: Container(
+                                        height: 45,
+                                        width: 45,
+                                        alignment: Alignment.centerLeft,
+                                        child: ClipOval(
+                                          child:
+                                              Image.network(authSnapshot.data.photoUrl),
+                                        )),
+                                  ),
+                                ])),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 40.0, left: 25.0),
+                          child: Row(
+                            children: <Widget>[
+                              Column(
+                                children: <Widget>[
                                   Container(
-                                    alignment: Alignment.centerLeft,
-                                    decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(10.0),
-                                        gradient: LinearGradient(colors: [
-                                          Colors.deepPurpleAccent,
-                                          Colors.pinkAccent
-                                        ])),
-                                    child: Column(
-                                      children: <Widget>[
-                                        Align(
-                                            alignment: Alignment.center,
-                                            heightFactor: 1.9,
-                                            child: Text('În curând!',
-                                                style: TextStyle(
-                                                    color: Colors.white,
-                                                    fontSize: 22,
-                                                    fontWeight: FontWeight.bold))),
-                                        Container(
-                                            padding: EdgeInsets.all(10.0),
+                                      height: 95,
+                                      width: 160,
+                                      decoration: BoxDecoration(
+                                          gradient: LinearGradient(colors: [
+                                            Color(0xFFE8CBC0),
+                                            Color(0xFF636FA4)
+                                          ]),
+                                          borderRadius: BorderRadius.circular(20)),
+                                      child: Center(
+                                        child: Text(
+                                          '${Translation.of(context).homeWelcome},\n${authSnapshot.data.displayName}!',
+                                          style: TextStyle(
+                                            fontSize: 22.0,
+                                            fontWeight: FontWeight.bold,
+                                            color: Color(0xFF000000),
+                                          ),
+                                        ),
+                                      )),
+                                  Padding(
+                                    padding: const EdgeInsets.only(top: 10),
+                                    child: Container(
+                                      height: 95,
+                                      width: 160,
+                                      decoration: BoxDecoration(
+                                          gradient: LinearGradient(
+                                            colors: [
+                                              Color(0xFF4568DC),
+                                              Color(0xFFB06AB3)
+                                            ],
+                                          ),
+                                          borderRadius: BorderRadius.circular(20)),
+                                      child: Column(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        children: <Widget>[
+                                          Container(
+                                            alignment: Alignment.topLeft,
+                                            padding: const EdgeInsets.only(
+                                                left: 20.0,),
                                             child: Text(
-                                                'Această secțiune va fi implementată în următoarea actualizare!',
-                                                style: TextStyle(
-                                                    fontSize: 16, color: Colors.white)))
-                                      ],
+                                              Translation.of(context).generalBalance,
+                                              style: TextStyle(
+                                                fontSize: 18.0,
+                                                color: Color(0xFFFFFFFF),
+                                              ),
+                                            ),
+                                          ),
+                                          Container(
+                                            alignment: Alignment.bottomRight,
+                                            padding: const EdgeInsets.only(
+                                                right: 20.0,
+                                                top: 5.0),
+                                            child: Text(
+                                              '£0.00',
+                                              style: TextStyle(
+                                                fontSize: 30.0,
+                                                fontWeight: FontWeight.bold,
+                                                color: Color(0xFFFFFFFF),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
                                     ),
                                   ),
-                                  Divider(color: CupertinoTheme.of(context).primaryColor,),
-                                ]);
-                              },
-                              childCount: 1,
-                            )))
-                  ]);
-                else
-                  return Container();
-              }
-          ),
-        ));
+                                ],
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(left: 20),
+                                child: Container(
+                                  height: 200,
+                                  width: 130,
+                                  decoration: BoxDecoration(
+                                      gradient: LinearGradient(colors: [
+                                        Color(0xFFFF7E5F),
+                                        Color(0xFFFEB47B)
+                                      ]),
+                                      borderRadius: BorderRadius.circular(20)),
+                                ),
+                              ),
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
+                  );
+            } else {
+              return Container();
+            }
+          }),
+    ));
   }
 }

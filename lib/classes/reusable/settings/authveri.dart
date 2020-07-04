@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../../../locale.dart';
 import '../trailing.dart';
 
 class AuthVeri extends StatefulWidget {
@@ -21,6 +22,7 @@ class _AuthVeriState extends State<AuthVeri> {
 
   void func() async {
     FirebaseUser user = await FirebaseAuth.instance.currentUser();
+    Translation translation = await Translation.of(context);
     try {
       if (_password != null) {
         setState(() {
@@ -41,24 +43,24 @@ class _AuthVeriState extends State<AuthVeri> {
         showCupertinoDialog(
             context: context,
             builder: (context) => CupertinoAlertDialog(
-                  title: Text('Eroare!',
+                  title: Text(translation.generalError,
                       style: TextStyle(
-                          fontFamily: 'SF Pro Display',
+                          fontFamily: 'Inter',
                           letterSpacing: -0.5,
                           fontSize: 17.0)),
                   content: Container(
                       padding: EdgeInsets.only(top: 10.0),
                       child: Text(
                         e.message ??
-                            'Ceva neprevăzut s-a întâmplat. Contactează administratorul.',
+                            '',
                         style: TextStyle(
-                            fontFamily: 'SF Pro Display', fontSize: 15.0),
+                            fontFamily: 'Inter', fontSize: 15.0),
                       )),
                   actions: <Widget>[
                     CupertinoDialogAction(
-                      child: Text('Reîncearcă',
+                      child: Text(translation.generalRetry,
                           style: TextStyle(
-                              fontFamily: 'SF Pro Display', fontSize: 17.0)),
+                              fontFamily: 'Inter', fontSize: 17.0)),
                       onPressed: () => Navigator.pop(context),
                     )
                   ],
@@ -71,7 +73,7 @@ class _AuthVeriState extends State<AuthVeri> {
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
         navigationBar: CupertinoNavigationBar(
-          previousPageTitle: 'Înapoi',
+          previousPageTitle: Translation.of(context).navigationBack,
           backgroundColor: CupertinoTheme.of(context).scaffoldBackgroundColor,
           trailing: TrailingHelper(
             generate: func,
@@ -85,7 +87,7 @@ class _AuthVeriState extends State<AuthVeri> {
             Container(
               alignment: Alignment.topCenter,
               padding: EdgeInsets.only(top: 80.0),
-              child: Text('Verificare',
+              child: Text(Translation.of(context).hermesReAuthTitle,
                   style:
                       TextStyle(fontSize: 30.0, fontWeight: FontWeight.bold)),
             ),
@@ -94,7 +96,7 @@ class _AuthVeriState extends State<AuthVeri> {
                 alignment: Alignment.topCenter,
                 padding: EdgeInsets.only(top: 20.0, left: 20.0, right: 20.0),
                 child:
-                    Text('Pentru a continua, vă rugăm reintroduceți-vă parola.',
+                    Text(Translation.of(context).hermesReAuthSubtitle,
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontSize: 17.0,
@@ -113,11 +115,12 @@ class _AuthVeriState extends State<AuthVeri> {
                   style: TextStyle(
                     color: CupertinoTheme.of(context).primaryContrastingColor,
                     fontSize: 20.0,
+                    fontFamily: 'Roboto',
                   ),
                   prefix: Padding(
                     padding: EdgeInsets.only(left: 10.0),
                   ),
-                  placeholder: 'Parolă',
+                  placeholder: Translation.of(context).generalPassword,
                   onChanged: (value) => _password = value,
                 )),
           ],

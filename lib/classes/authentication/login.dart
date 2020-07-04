@@ -1,3 +1,4 @@
+import '../../locale.dart';
 import 'redirect.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -14,7 +15,6 @@ class LoginSignupPage extends StatefulWidget {
 }
 
 class _LoginSignupPageState extends State<LoginSignupPage> {
-
   final _formKey = new GlobalKey<FormState>();
 
   String _email;
@@ -36,6 +36,7 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
 
   // Perform login or signup
   void validateAndSubmit() async {
+    Translation translation = Translation.of(context);
     setState(() {
       _errorMessage = "";
       _isLoading = true;
@@ -56,6 +57,7 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
           Firestore.instance.collection('users').document(user.email).setData({
             'uid': user.uid,
             'email': user.email,
+            'banned' : false,
           });
           Navigator.pushReplacement(context,
               CupertinoPageRoute(builder: (context) => CreateNamePage()));
@@ -68,7 +70,6 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
           widget.loginCallback();
         }
       } catch (e) {
-
         setState(() {
           _isLoading = false;
           _errorMessage = e.message;
@@ -77,23 +78,22 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
           showCupertinoDialog(
               context: context,
               builder: (context) => CupertinoAlertDialog(
-                    title: Text('Eroare!',
+                    title: Text(translation.generalError,
                         style: TextStyle(
-                            fontFamily: 'SF Pro Display',
+                            fontFamily: 'Inter',
                             letterSpacing: -0.5,
                             fontSize: 17.0)),
                     content: Container(
                         padding: EdgeInsets.only(top: 10.0),
                         child: Text(
-                          _errorMessage ?? 'Introdu-ți emailul!',
-                          style: TextStyle(
-                              fontFamily: 'SF Pro Display', fontSize: 15.0),
+                          _errorMessage ?? '',
+                          style: TextStyle(fontFamily: 'Inter', fontSize: 15.0),
                         )),
                     actions: <Widget>[
                       CupertinoDialogAction(
-                        child: Text('Reîncearcă',
-                            style: TextStyle(
-                                fontFamily: 'SF Pro Display', fontSize: 17.0)),
+                        child: Text(translation.generalRetry,
+                            style:
+                                TextStyle(fontFamily: 'Inter', fontSize: 17.0)),
                         onPressed: () => Navigator.pop(context),
                       )
                     ],
@@ -146,9 +146,10 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
           height: MediaQuery.of(context).size.height,
           width: MediaQuery.of(context).size.width,
           child: Center(
-             child: CircularProgressIndicator(
-               valueColor: new AlwaysStoppedAnimation<Color>(CupertinoColors.activeGreen),
-             )));
+              child: CircularProgressIndicator(
+            valueColor:
+                new AlwaysStoppedAnimation<Color>(CupertinoColors.activeGreen),
+          )));
     }
     return Container(
       color: CupertinoTheme.of(context).scaffoldBackgroundColor,
@@ -182,12 +183,12 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
       child: Padding(
         padding: EdgeInsets.fromLTRB(0.0, 70.0, 0.0, 0.0),
         child: CircleAvatar(
-            backgroundColor: Colors.transparent,
-            radius: 80.0,
-            child: ClipRRect(
-                borderRadius: BorderRadius.circular(100.0),
-                child: Image.network(
-                    'https://lh3.googleusercontent.com/puERkjc7E2so0PgaamK0NQ3FQvTjiTZlAjekMc7bVr1xvoCugIzEAMo-zUi3bfGcPQ=s180-rw'))),
+          backgroundColor: Colors.transparent,
+          radius: 80.0,
+          child: ClipOval(
+            child: Image.asset('assets/pictogram_round'),
+          ),
+        ),
       ),
     );
   }
@@ -199,9 +200,12 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
         maxLines: 1,
         keyboardType: TextInputType.emailAddress,
         autofocus: false,
-        style: TextStyle(color: CupertinoTheme.of(context).primaryContrastingColor, fontSize: 20.0),
+        style: TextStyle(
+            color: CupertinoTheme.of(context).primaryContrastingColor,
+            fontFamily: 'Roboto',
+            fontSize: 20.0),
         prefix: Padding(padding: EdgeInsets.only(left: 10.0)),
-        placeholder: 'Email',
+        placeholder: Translation.of(context).generalEmail,
         cursorColor: CupertinoColors.activeGreen,
         onChanged: (value) => _email = value.trim(),
       ),
@@ -215,9 +219,12 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
         maxLines: 1,
         obscureText: true,
         autofocus: false,
-        style: TextStyle(color: CupertinoTheme.of(context).primaryContrastingColor, fontSize: 20.0),
+        style: TextStyle(
+            color: CupertinoTheme.of(context).primaryContrastingColor,
+            fontFamily: 'Roboto',
+            fontSize: 20.0),
         prefix: Padding(padding: EdgeInsets.only(left: 10.0)),
-        placeholder: 'Parolă',
+        placeholder: Translation.of(context).generalPassword,
         cursorColor: CupertinoColors.activeGreen,
         onChanged: (value) => _password = value.trim(),
       ),
@@ -228,8 +235,8 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
     return new CupertinoButton(
         child: new Text(
             _isLoginForm
-                ? 'Nu ai cont? Creează unul!'
-                : 'Ai deja unul? Autentifică-te!',
+                ? Translation.of(context).hermesNoAccount
+                : Translation.of(context).hermesYesAccount,
             style: new TextStyle(
                 fontSize: 18.0,
                 fontWeight: FontWeight.w600,
@@ -244,7 +251,7 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
           height: 50.0,
           child: new CupertinoButton(
             color: Colors.green,
-            child: new Text(_isLoginForm ? 'Autentificare' : 'Creează cont',
+            child: new Text(_isLoginForm ? Translation.of(context).hermesLogin : Translation.of(context).hermesCreateAccount,
                 style: new TextStyle(
                     fontSize: 20.0,
                     color: Colors.white,

@@ -5,18 +5,17 @@ import 'package:Vanto/classes/settings/account/security.dart';
 
 import '../../../classes/reusable/settings/group.dart';
 import '../../../classes/reusable/settings/item.dart';
-import '../../../classes/settings/account/pic.dart';
+import '../../../classes/settings/account/pic_needs_replacement.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../../../locale.dart';
-import 'name.dart';
+import 'name_needs_replacement.dart';
 
 class AccountManager extends StatefulWidget {
   AccountManager({Key key, this.name}) : super(key: key);
   final name;
   static CupertinoPageRoute<void> route() => new CupertinoPageRoute(
-        title: 'Aparență',
         builder: (BuildContext context) => AccountManager(),
       );
   @override

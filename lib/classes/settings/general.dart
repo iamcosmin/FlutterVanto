@@ -1,13 +1,11 @@
 import 'package:device_info/device_info.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:package_info/package_info.dart';
 
 import '../../locale.dart';
 import '../reusable/settings/group.dart';
 import '../reusable/settings/item.dart';
 
-const versionname = '6.0.0';
-const versioncode = '2020052900';
-const builddate = '29 mai 2020';
 
 DeviceInfoPlugin deviceInfo =
     DeviceInfoPlugin(); // instantiate device info plugin
@@ -56,20 +54,6 @@ class _GeneralPageState extends State<GeneralPage> {
                 ),
               ],
             ),
-            SettingsGroup(
-              <Widget>[
-                SettingsItem(
-                  label: 'Magazin',
-                  type: SettingsItemType.modal,
-                  hasDetails: false,
-                ),
-                SettingsItem(
-                  label: 'TV',
-                  type: SettingsItemType.modal,
-                  hasDetails: false,
-                ),
-              ],
-            ),
             const Padding(padding: EdgeInsets.only(top: 11.5)),
           ],
         ),
@@ -91,7 +75,12 @@ class AboutPage extends StatefulWidget {
 class _AboutPageState extends State<AboutPage> {
   String model;
   String product;
-  void getDeviceinfo() async {
+  String appName;
+  String buildNumber;
+  String packageName;
+  String version;
+
+  void getDeviceInfo() async {
     androidDeviceInfo = await deviceInfo
         .androidInfo; // instantiate Android Device Infoformation
 
@@ -101,18 +90,29 @@ class _AboutPageState extends State<AboutPage> {
     });
   }
 
+  void getPackageInfo() async {
+    PackageInfo packageInfo = await PackageInfo.fromPlatform();
+    setState(() {
+      appName = packageInfo.appName;
+      buildNumber = packageInfo.buildNumber;
+      packageName = packageInfo.packageName;
+      version = packageInfo.version;
+    });
+  }
+
   @override
   void initState() {
     super.initState();
-    getDeviceinfo();
+    getDeviceInfo();
+    getPackageInfo();
   }
 
   @override
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
       navigationBar: CupertinoNavigationBar(
-        previousPageTitle: 'General',
-        middle: Text('Despre'),
+        previousPageTitle: Translation.of(context).settingsGeneral,
+        middle: Text(Translation.of(context).settingsGeneralInfo),
       ),
       child: Container(
         color: CupertinoTheme.of(context).scaffoldBackgroundColor ,
@@ -121,27 +121,27 @@ class _AboutPageState extends State<AboutPage> {
             SettingsGroup(
               <Widget>[
                 SettingsItem(
-                  label: 'Nume',
-                  value: 'Vanto pentru Android',
+                  label: Translation.of(context).infoName,
+                  value: appName,
                   type: SettingsItemType.modal,
                 ),
                 SettingsItem(
-                  label: 'Versiune',
-                  value: versionname,
+                  label: Translation.of(context).infoVersion,
+                  value: version,
                   type: SettingsItemType.modal,
                 ),
                 SettingsItem(
-                    label: 'Cod',
-                    value: versioncode,
+                    label: Translation.of(context).infoCode,
+                    value: buildNumber,
                     type: SettingsItemType.modal,
                   ),
                 SettingsItem(
-                  label: 'Data construirii',
-                  value: builddate,
+                  label: Translation.of(context).infoPackage,
+                  value: packageName,
                   type: SettingsItemType.modal,
                 ),
                 SettingsItem(
-                  label: 'Dispozitiv',
+                  label: Translation.of(context).infoDevice,
                   value: '$model ($product)',
                   type: SettingsItemType.modal,
                 ),
@@ -158,17 +158,18 @@ class _AboutPageState extends State<AboutPage> {
 
 
 class UpdatePage extends StatelessWidget {
+
   static CupertinoPageRoute<void> route() => new CupertinoPageRoute(
-        title: 'Actualizare software',
-        builder: (BuildContext context) => UpdatePage(),
-      );
+    title: 'Actualizare software',
+    builder: (BuildContext context) => UpdatePage(),
+  );
 
   @override
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
       navigationBar: CupertinoNavigationBar(
-        previousPageTitle: 'General',
-        middle: Text('Actualizare software'),
+        previousPageTitle: Translation.of(context).settingsGeneral,
+        middle: Text(Translation.of(context).settingsGeneralUpdates),
       ),
       child: SafeArea(
         child: Container(
@@ -177,10 +178,10 @@ class UpdatePage extends StatelessWidget {
             child: Center(
                 child: Column(
               children: <Widget>[
-                Text('Vanto $versionname.',
+                Text('Vanto',
                     style: TextStyle(
                         color: CupertinoColors.inactiveGray, fontSize: 17)),
-                Text('Căutați actualizări în Google Play.',
+                Text(Translation.of(context).updateNotice,
                     style: TextStyle(
                         color: CupertinoColors.inactiveGray, fontSize: 17))
               ],

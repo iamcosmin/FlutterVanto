@@ -40,7 +40,7 @@ class _MainState extends State<Main> {
     textTheme: CupertinoTextThemeData(
       primaryColor: CupertinoColors.activeGreen,
       textStyle:
-          TextStyle(color: CupertinoColors.white, fontFamily: 'SF Pro Display'),
+          TextStyle(color: CupertinoColors.white, fontFamily: 'Inter'),
     ),
   );
 
@@ -52,7 +52,7 @@ class _MainState extends State<Main> {
     textTheme: CupertinoTextThemeData(
       primaryColor: CupertinoColors.activeGreen,
       textStyle:
-          TextStyle(color: CupertinoColors.black, fontFamily: 'SF Pro Display'),
+          TextStyle(color: CupertinoColors.black, fontFamily: 'Inter'),
     ),
   );
 

@@ -14,13 +14,6 @@ class SettingsHeader extends StatefulWidget {
 class _SettingsHeaderState extends State<SettingsHeader> {
 
   @override
-  void initState() {
-    super.initState();
-    setState(() {
-
-    });
-  }
-  @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () => Navigator.push(

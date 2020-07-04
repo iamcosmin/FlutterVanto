@@ -1,6 +1,9 @@
+import 'package:Vanto/classes/reusable/trailing.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
+import '../../../locale.dart';
 
 class ChangeEmailPage extends StatefulWidget {
   @override
@@ -14,6 +17,7 @@ class _ChangeEmailPageState extends State<ChangeEmailPage> {
 
   void reauth() async {
     FirebaseUser user = await FirebaseAuth.instance.currentUser();
+    Translation translation = Translation.of(context);
     setState(() {
       _errorMessage = '';
       loading = true;
@@ -31,23 +35,23 @@ class _ChangeEmailPageState extends State<ChangeEmailPage> {
         showCupertinoDialog(
             context: context,
             builder: (context) => CupertinoAlertDialog(
-              title: Text('Eroare!',
+              title: Text(translation.generalError,
                   style: TextStyle(
-                      fontFamily: 'SF Pro Display',
+                      fontFamily: 'Inter',
                       letterSpacing: -0.5,
                       fontSize: 17.0)),
               content: Container(
                   padding: EdgeInsets.only(top: 10.0),
                   child: Text(
-                    _errorMessage ?? 'Introdu-ți emailul!',
+                    _errorMessage ?? '',
                     style: TextStyle(
-                        fontFamily: 'SF Pro Display', fontSize: 15.0),
+                        fontFamily: 'Inter', fontSize: 15.0),
                   )),
               actions: <Widget>[
                 CupertinoDialogAction(
-                  child: Text('Reîncearcă',
+                  child: Text(translation.generalRetry,
                       style: TextStyle(
-                          fontFamily: 'SF Pro Display', fontSize: 17.0)),
+                          fontFamily: 'Inter', fontSize: 17.0)),
                   onPressed: () => Navigator.pop(context),
                 )
               ],
@@ -60,7 +64,8 @@ class _ChangeEmailPageState extends State<ChangeEmailPage> {
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
         navigationBar: CupertinoNavigationBar(
-          middle: Text('Email'),
+          backgroundColor: Color(0xFF000000),
+          trailing: TrailingHelper(generate: reauth, loader: loading, last: true,),
         ),
         child: SafeArea(
             child: ListView(
@@ -68,7 +73,7 @@ class _ChangeEmailPageState extends State<ChangeEmailPage> {
                 Container(
                   alignment: Alignment.topCenter,
                   padding: EdgeInsets.only(top: 80.0),
-                  child: Text('Modificați emailul',
+                  child: Text(Translation.of(context).hermesChangeEmailTitle,
                       style:
                       TextStyle(fontSize: 30.0, fontWeight: FontWeight.bold)),
                 ),
@@ -77,7 +82,7 @@ class _ChangeEmailPageState extends State<ChangeEmailPage> {
                     alignment: Alignment.topCenter,
                     padding: EdgeInsets.only(top: 20.0, left: 20.0, right: 20.0),
                     child:
-                    Text('Emailul dumneavoastră trebuie să fie valid.',
+                    Text(Translation.of(context).hermesChangeEmailSubtitle,
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontSize: 17.0,
@@ -95,36 +100,14 @@ class _ChangeEmailPageState extends State<ChangeEmailPage> {
                       style: TextStyle(
                         color: CupertinoTheme.of(context).primaryContrastingColor,
                         fontSize: 20.0,
+                        fontFamily: 'Roboto',
                       ),
                       prefix: Padding(
                         padding: EdgeInsets.only(left: 10.0),
                       ),
-                      placeholder: 'Email',
+                      placeholder: Translation.of(context).generalEmail,
                       onChanged: (value) => _email = value,
                     )),
-                Container(
-                  alignment: Alignment.bottomCenter,
-                  padding: EdgeInsets.only(
-                      top: MediaQuery.of(context).size.height - 480),
-                  child: loading != true
-                      ? CupertinoButton(
-                    color: Colors.green,
-                    onPressed: reauth,
-                    child: Stack(
-                      children: <Widget>[
-                        Text('Continuă',
-                            style: TextStyle(
-                                fontSize: 17.0,
-                                color: CupertinoTheme.of(context)
-                                    .scaffoldBackgroundColor,
-                                fontWeight: FontWeight.w600)),
-                      ],
-                    ),
-                  )
-                      : CircularProgressIndicator(
-                    valueColor: new AlwaysStoppedAnimation<Color>(CupertinoColors.activeGreen),
-                  ),
-                )
               ],
             )));
   }
