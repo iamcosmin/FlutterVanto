@@ -136,6 +136,17 @@ class HomeScreen extends State<Home> {
                                         Color(0xFFFEB47B)
                                       ]),
                                       borderRadius: BorderRadius.circular(20)),
+                                  child: Center(
+                                    child: Text(
+                                      'Up to date',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        fontSize: 30.0,
+                                        fontWeight: FontWeight.bold,
+                                        color: Color(0xFFFFFFFF),
+                                      ),
+                                    ),
+                                  ),
                                 ),
                               ),
                             ],

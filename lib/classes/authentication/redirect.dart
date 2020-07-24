@@ -114,6 +114,7 @@ class _TabNavigator extends State<TabNavigator> {
   didChangeDependencies() {
     super.didChangeDependencies();
     verifyMaintenance();
+    
   }
 
   int _selectedIndex = 0;

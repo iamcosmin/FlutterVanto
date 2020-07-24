@@ -186,7 +186,7 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
           backgroundColor: Colors.transparent,
           radius: 80.0,
           child: ClipOval(
-            child: Image.asset('assets/pictogram_round'),
+            child: Image.network('https://lh3.googleusercontent.com/puERkjc7E2so0PgaamK0NQ3FQvTjiTZlAjekMc7bVr1xvoCugIzEAMo-zUi3bfGcPQ=s180-rw'),
           ),
         ),
       ),
@@ -238,7 +238,7 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
                 ? Translation.of(context).hermesNoAccount
                 : Translation.of(context).hermesYesAccount,
             style: new TextStyle(
-                fontSize: 18.0,
+                fontSize: 16.0,
                 fontWeight: FontWeight.w600,
                 color: Colors.green)),
         onPressed: toggleFormMode);
@@ -253,7 +253,7 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
             color: Colors.green,
             child: new Text(_isLoginForm ? Translation.of(context).hermesLogin : Translation.of(context).hermesCreateAccount,
                 style: new TextStyle(
-                    fontSize: 20.0,
+                    fontSize: 19.0,
                     color: Colors.white,
                     fontWeight: FontWeight.w600)),
             onPressed: validateAndSubmit,
