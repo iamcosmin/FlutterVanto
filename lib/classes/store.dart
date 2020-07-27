@@ -7,7 +7,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '../locale.dart';
 
-
 class Store extends StatefulWidget {
   @override
   _StoreState createState() => _StoreState();
@@ -19,7 +18,7 @@ class _StoreState extends State<Store> {
       0: Text(Translation.of(context).storeApps),
       1: Text(Translation.of(context).storeGames),
       2: Text(Translation.of(context).storeMovies),
-      3: Text(Translation.of(context).storeExclusive),
+      3: Text(Translation.of(context).storeCategorySeries),
     };
     return children;
   }
@@ -100,58 +99,69 @@ class _StoreState extends State<Store> {
                                             title: document['title'],
                                             image: document['image'],
                                             link: document['link'],
-                                            subtitle: Translation.of(context).storeCategoryGame,
-                                          );
-                                        }).toList(),
-                                      );
-                                    },
-                                  ): currentSegment == 2
-                                ? StreamBuilder<QuerySnapshot>(
-                                    stream: Firestore.instance
-                                        .collection('movies')
-                                        .snapshots(),
-                                    builder: (BuildContext context,
-                                        AsyncSnapshot<QuerySnapshot> snapshot) {
-                                      if (!snapshot.hasData) {
-                                        return Container();
-                                      }
-                                      return Column(
-                                        children: snapshot.data.documents
-                                            .map((DocumentSnapshot document) {
-                                          return StoreTile(
-                                            title: document['title'],
-                                            image: document['image'],
-                                            link: document['link'],
-                                            subtitle: Translation.of(context).storeCategoryMovie,
+                                            subtitle: Translation.of(context)
+                                                .storeCategoryGame,
                                           );
                                         }).toList(),
                                       );
                                     },
                                   )
-                                : currentSegment == 3
-                                ? StreamBuilder<QuerySnapshot>(
-                                    stream: Firestore.instance
-                                        .collection('exclusive')
-                                        .snapshots(),
-                                    builder: (BuildContext context,
-                                        AsyncSnapshot<QuerySnapshot> snapshot) {
-                                      if (!snapshot.hasData) {
-                                        return Container();
-                                      }
-                                      return Column(
-                                        children: snapshot.data.documents
-                                            .map((DocumentSnapshot document) {
-                                          return ModdedStoreTile(
-                                            title: document['title'],
-                                            image: document['image'],
-                                            link: document['link'],
-                                            subtitle: Translation.of(context).storeCategoryExclusive,
+                                : currentSegment == 2
+                                    ? StreamBuilder<QuerySnapshot>(
+                                        stream: Firestore.instance
+                                            .collection('movies')
+                                            .snapshots(),
+                                        builder: (BuildContext context,
+                                            AsyncSnapshot<QuerySnapshot>
+                                                snapshot) {
+                                          if (!snapshot.hasData) {
+                                            return Container();
+                                          }
+                                          return Column(
+                                            children: snapshot.data.documents
+                                                .map((DocumentSnapshot
+                                                    document) {
+                                              return StoreTile(
+                                                title: document['title'],
+                                                image: document['image'],
+                                                link: document['link'],
+                                                subtitle:
+                                                    Translation.of(context)
+                                                        .storeCategoryMovie,
+                                              );
+                                            }).toList(),
                                           );
-                                        }).toList(),
-                                      );
-                                    },
-                                  )
-                                : null)
+                                        },
+                                      )
+                                    : currentSegment == 3
+                                        ? StreamBuilder<QuerySnapshot>(
+                                            stream: Firestore.instance
+                                                .collection('series')
+                                                .snapshots(),
+                                            builder: (BuildContext context,
+                                                AsyncSnapshot<QuerySnapshot>
+                                                    snapshot) {
+                                              if (!snapshot.hasData) {
+                                                return Container();
+                                              }
+                                              return Column(
+                                                children: snapshot
+                                                    .data.documents
+                                                    .map((DocumentSnapshot
+                                                        document) {
+                                                  return StoreTile(
+                                                    title: document['title'],
+                                                    image: document['image'],
+                                                    link: document['link'],
+                                                    subtitle: Translation.of(
+                                                            context)
+                                                        .storeCategorySeries,
+                                                  );
+                                                }).toList(),
+                                              );
+                                            },
+                                          )
+                                        : null)
                   ],
                 ),
               ),

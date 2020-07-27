@@ -1,8 +1,11 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:web_browser/web_browser.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 import '../../../locale.dart';
 import '../trailing.dart';
 import 'details.dart';
@@ -50,40 +53,10 @@ class _StoreTile extends State<StoreTile> {
               child: Image.network(widget.image),
             ),
             onTap: () => CupertinoScaffold.showCupertinoModalBottomSheet(
+              enableDrag: false,
               context: context,
-              builder: (context, scrollController) => CupertinoScaffold(
-                body: CupertinoPageScaffold(
-                  child: ListView(
-                    children: <Widget>[
-                      SafeArea(
-                          child: Container(
-                        width: MediaQuery.of(context).size.width,
-                        height: MediaQuery.of(context).size.height * 3,
-                        child: WebBrowser(
-                          interactionSettings: WebBrowserInteractionSettings(
-                            gestureNavigationEnabled: true,
-                            topBar: Container(),
-                            bottomBar: Container(),
-                          ),
-                          initialUrl: widget.link,
-                          javascriptEnabled: true,
-                        ),
-                      ))
-                    ],
-                  ),
-                  navigationBar: CupertinoNavigationBar(
-                    middle: Text(widget.title),
-                    leading: Container(),
-                    trailing: TrailingHelper(
-                      loader: false,
-                      last: true,
-                      generate: () {
-                        Navigator.pop(context);
-                      },
-                    ),
-                  ),
-                ),
-              ),
+              builder: (context, scrollController) =>
+                  WebViewCreator(widget.title, widget.link),
             ),
             onLongPress: () {
               Translation translation = Translation.of(context);
@@ -160,11 +133,10 @@ class _ModdedStoreTile extends State<ModdedStoreTile> {
               borderRadius: BorderRadius.circular(10.0),
               child: Image.network(widget.image),
             ),
-            onTap: () => Navigator.push(
-                context,
-                CupertinoPageRoute(
-                    builder: (context) => Details(widget.title, widget.image,
-                        widget.subtitle, widget.link))),
+            onTap: () => CupertinoScaffold.showCupertinoModalBottomSheet(
+                context: context,
+                builder: (context, scrollController) => Details(
+                    widget.title, widget.image, widget.subtitle, widget.link)),
             onLongPress: () {
               Translation translation = Translation.of(context);
               showCupertinoModalPopup(
@@ -192,6 +164,50 @@ class _ModdedStoreTile extends State<ModdedStoreTile> {
             },
           ),
         ),
+      ),
+    );
+  }
+}
+
+class WebViewCreator extends StatelessWidget {
+  final String title;
+  final String link;
+  WebViewCreator(this.title, this.link);
+  final Completer<WebViewController> _controller =
+      Completer<WebViewController>();
+  @override
+  Widget build(BuildContext context) {
+    return CupertinoScaffold(
+      body: CupertinoPageScaffold(
+        child: SafeArea(
+          child: WebView(
+            javascriptMode: JavascriptMode.unrestricted,
+            initialUrl: link,
+            gestureNavigationEnabled: true,
+            onWebViewCreated: (WebViewController webViewController) {
+              _controller.complete(webViewController);
+            },
+          ),
+        ),
+        navigationBar: CupertinoNavigationBar(
+            middle: Text(
+              title,
+              style: TextStyle(
+                fontFamily: 'Inter',
+              ),
+            ),
+            leading: Container(),
+            trailing: GestureDetector(
+              onTap: () => Navigator.pop(context),
+              child: Transform.rotate(
+                angle: 0.8,
+                child: Icon(
+                  Ionicons.ios_add_circle,
+                  size: 30,
+                  color: CupertinoColors.systemGrey,
+                ),
+              ),
+            )),
       ),
     );
   }

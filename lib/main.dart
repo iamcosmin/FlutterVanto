@@ -8,7 +8,7 @@ import 'classes/authentication/splash.dart';
 void main() {
   runApp(MainApp());
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-    systemNavigationBarColor: Colors.transparent,
+    systemNavigationBarColor: Colors.black,
   ));
 }
 

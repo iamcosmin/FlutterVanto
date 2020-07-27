@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../locale.dart';
-
 
 class Details extends StatelessWidget {
   final String title;
@@ -17,9 +17,19 @@ class Details extends StatelessWidget {
     // TODO: implement build
     return CupertinoPageScaffold(
       navigationBar: CupertinoNavigationBar(
-        middle: Text(this.title),
-        previousPageTitle: Translation.of(context).navigationBack,
-      ),
+          middle: Text(this.title),
+          leading: Container(),
+          trailing: GestureDetector(
+            onTap: () => Navigator.pop(context),
+            child: Transform.rotate(
+              angle: 0.8,
+              child: Icon(
+                Ionicons.ios_add_circle,
+                size: 30,
+                color: CupertinoColors.systemGrey,
+              ),
+            ),
+          )),
       child: DefaultTextStyle(
         style: TextStyle(fontFamily: 'Inter'),
         child: SafeArea(
@@ -38,9 +48,7 @@ class Details extends StatelessWidget {
                       width: 128.0,
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(24.0),
-                        child: Image.network(
-                            this.image
-                        ),
+                        child: Image.network(this.image),
                       ),
                     ),
                     const Padding(padding: EdgeInsets.only(left: 18.0)),
@@ -51,13 +59,18 @@ class Details extends StatelessWidget {
                         children: <Widget>[
                           Text(
                             this.title,
-                            style: TextStyle(fontSize: 24.0, color: CupertinoTheme.of(context).primaryContrastingColor , fontWeight: FontWeight.bold),
+                            style: TextStyle(
+                                fontSize: 24.0,
+                                color: CupertinoTheme.of(context)
+                                    .primaryContrastingColor,
+                                fontWeight: FontWeight.bold),
                           ),
                           const Padding(padding: EdgeInsets.only(top: 6.0)),
                           Text(
                             this.subtitle,
                             style: TextStyle(
-                              color: CupertinoDynamicColor.resolve(CupertinoColors.secondaryLabel, context),
+                              color: CupertinoDynamicColor.resolve(
+                                  CupertinoColors.secondaryLabel, context),
                               fontSize: 16.0,
                               fontWeight: FontWeight.w300,
                             ),
@@ -69,15 +82,19 @@ class Details extends StatelessWidget {
                               CupertinoButton(
                                 color: CupertinoColors.systemGreen,
                                 minSize: 30.0,
-                                padding: const EdgeInsets.symmetric(horizontal: 24.0),
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 24.0),
                                 borderRadius: BorderRadius.circular(32.0),
                                 child: Text(
-                                  Translation.of(context).storeObtain.toUpperCase(),
+                                  Translation.of(context)
+                                      .storeObtain
+                                      .toUpperCase(),
                                   style: TextStyle(
                                     fontSize: 14.0,
                                     fontWeight: FontWeight.w700,
                                     letterSpacing: -0.28,
-                                    color: CupertinoTheme.of(context).primaryColor,
+                                    color:
+                                        CupertinoTheme.of(context).primaryColor,
                                   ),
                                 ),
                                 onPressed: () {
@@ -89,27 +106,37 @@ class Details extends StatelessWidget {
                                 minSize: 30.0,
                                 padding: EdgeInsets.zero,
                                 borderRadius: BorderRadius.circular(32.0),
-                                child: Icon(CupertinoIcons.ellipsis, color: CupertinoTheme.of(context).primaryColor),
+                                child: Icon(CupertinoIcons.ellipsis,
+                                    color: CupertinoTheme.of(context)
+                                        .primaryColor),
                                 onPressed: () {
-                                  Translation translation = Translation.of(context);
+                                  Translation translation =
+                                      Translation.of(context);
                                   showCupertinoModalPopup(
-                                    context: context, builder: (BuildContext context) => CupertinoActionSheet(
-                                    title: Text(this.title + translation.storeSheetTitle),
-                                    message: Text(translation.storeSheetSubtitle),
-                                    actions: <Widget>[
-                                      CupertinoActionSheetAction(
-                                        child: Text(translation.generalReport),
-                                        onPressed: () {launch('https://t.me/iamcosmin');},
-                                      )
-                                    ],
-                                    cancelButton: CupertinoActionSheetAction(
-                                      child: Text(translation.generalCancel),
-                                      isDestructiveAction: true,
-                                      onPressed: () {
-                                        Navigator.pop(context, 'Cancel');
-                                      },
+                                    context: context,
+                                    builder: (BuildContext context) =>
+                                        CupertinoActionSheet(
+                                      title: Text(this.title +
+                                          translation.storeSheetTitle),
+                                      message:
+                                          Text(translation.storeSheetSubtitle),
+                                      actions: <Widget>[
+                                        CupertinoActionSheetAction(
+                                          child:
+                                              Text(translation.generalReport),
+                                          onPressed: () {
+                                            launch('https://t.me/iamcosmin');
+                                          },
+                                        )
+                                      ],
+                                      cancelButton: CupertinoActionSheetAction(
+                                        child: Text(translation.generalCancel),
+                                        isDestructiveAction: true,
+                                        onPressed: () {
+                                          Navigator.pop(context, 'Cancel');
+                                        },
+                                      ),
                                     ),
-                                  ),
                                   );
                                 },
                               ),
@@ -140,10 +167,3 @@ class Details extends StatelessWidget {
     );
   }
 }
-
-
-
-
-
-
-

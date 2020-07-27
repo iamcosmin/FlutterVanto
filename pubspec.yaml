@@ -1,6 +1,6 @@
 name: Vanto
 description: Aplicația Vanto pentru Android!
-version: 6.0.0+2020072401
+version: 6.0.1+2020072602
 
 environment:
   sdk: ">=2.2.2"
@@ -23,14 +23,10 @@ dependencies:
   device_info: ^0.4.2+4
   image_picker: ^0.6.6+2
   image_cropper: ^1.2.3
-  shimmer: ^1.1.1
-  simple_animations:
   package_info: ^0.4.1
-  splashscreen: ^1.2.0
-  chewie: ^0.9.10
   modal_bottom_sheet: 0.2.0+1
-  web_browser: 0.2.2
-  native_updater: 0.0.3
+  webview_flutter: 0.3.22+1
+
 dev_dependencies:
   flappy_translator:
   flutter_test:

@@ -4,6 +4,7 @@ import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:package_info/package_info.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../locale.dart';
 import '../home.dart';
@@ -13,99 +14,121 @@ import '../store.dart';
 class TabNavigator extends StatefulWidget {
   @override
   _TabNavigator createState() => _TabNavigator();
-  TabNavigator({Key key, this.userId, this.logoutCallback})
-      : super(key: key);
+  TabNavigator({Key key, this.userId, this.logoutCallback}) : super(key: key);
 
   final VoidCallback logoutCallback;
   final String userId;
 }
 
 class _TabNavigator extends State<TabNavigator> {
+  String model;
+  String product;
+  String appName;
+  int buildNumber;
+  String packageName;
+  String version;
+
   Future verifyMaintenance() async {
     Translation translation = await Translation.of(context);
-    Firestore.instance.collection('settings').document('status').get().then((value) {
+    Firestore.instance
+        .collection('settings')
+        .document('status')
+        .get()
+        .then((value) {
       if (value.exists) {
         if (value.data['maintenance'] != false) {
           showCupertinoDialog(
               context: context,
               builder: (context) => WillPopScope(
-                onWillPop: () async => false,
-                child: CupertinoAlertDialog(
-                  title: Text(
-                      translation.errorMaintenanceTitle,
-                      style: TextStyle(
-                          fontFamily: 'Inter',
-                          letterSpacing: -0.5,
-                          fontSize: 17.0)),
-                  content: Container(
-                      padding: EdgeInsets.only(top: 10.0),
-                      child: Text(
-                        translation.errorMaintenanceSubtitle,
-                        style: TextStyle(
-                            fontFamily: 'Inter', fontSize: 15.0),
-                      )),
-                  actions: <Widget>[
-                    CupertinoDialogAction(
-                      child: Text(translation.generalRetry,
+                    onWillPop: () async => false,
+                    child: CupertinoAlertDialog(
+                      title: Text(translation.errorMaintenanceTitle,
                           style: TextStyle(
-                              fontFamily: 'Inter', fontSize: 17.0)),
-                      onPressed: () {verifyMaintenance(); Navigator.pop(context);},
-                    )
-                  ],
-                ),
-              ));
+                              fontFamily: 'Inter',
+                              letterSpacing: -0.5,
+                              fontSize: 17.0)),
+                      content: Container(
+                          padding: EdgeInsets.only(top: 10.0),
+                          child: Text(
+                            translation.errorMaintenanceSubtitle,
+                            style:
+                                TextStyle(fontFamily: 'Inter', fontSize: 15.0),
+                          )),
+                      actions: <Widget>[
+                        CupertinoDialogAction(
+                          child: Text(translation.generalRetry,
+                              style: TextStyle(
+                                  fontFamily: 'Inter', fontSize: 17.0)),
+                          onPressed: () {
+                            verifyMaintenance();
+                            Navigator.pop(context);
+                          },
+                        )
+                      ],
+                    ),
+                  ));
         } else {
           verifyBan();
         }
       }
     });
-
   }
 
   Future verifyBan() async {
     FirebaseUser user = await FirebaseAuth.instance.currentUser();
     Translation translation = await Translation.of(context);
-    Firestore.instance.collection('users').document(user.email).get().then((value) {
+    Firestore.instance
+        .collection('users')
+        .document(user.email)
+        .get()
+        .then((value) {
       if (value.exists) {
         if (value.data['banned'] != false && value.data['banned'] != null) {
           showCupertinoDialog(
               context: context,
               builder: (context) => WillPopScope(
-                onWillPop: () async => false,
-                child: CupertinoAlertDialog(
-                  title: Text(translation.errorBannedTitle,
-                      style: TextStyle(
-                          fontFamily: 'Inter',
-                          letterSpacing: -0.5,
-                          fontSize: 17.0)),
-                  content: Container(
-                      padding: EdgeInsets.only(top: 10.0),
-                      child: Text(
-                        translation.errorBannedSubtitle,
-                        style: TextStyle(
-                            fontFamily: 'Inter', fontSize: 15.0),
-                      )),
-                  actions: <Widget>[
-                    CupertinoDialogAction(
-                      child: Text(translation.errorBannedAppeal,
+                    onWillPop: () async => false,
+                    child: CupertinoAlertDialog(
+                      title: Text(translation.errorBannedTitle,
                           style: TextStyle(
-                              fontFamily: 'Inter', fontSize: 17.0)),
-                      onPressed: () {launch('https://github.com/iamcosmin/Vanto-Flutter/issues');},
+                              fontFamily: 'Inter',
+                              letterSpacing: -0.5,
+                              fontSize: 17.0)),
+                      content: Container(
+                          padding: EdgeInsets.only(top: 10.0),
+                          child: Text(
+                            translation.errorBannedSubtitle,
+                            style:
+                                TextStyle(fontFamily: 'Inter', fontSize: 15.0),
+                          )),
+                      actions: <Widget>[
+                        CupertinoDialogAction(
+                          child: Text(translation.errorBannedAppeal,
+                              style: TextStyle(
+                                  fontFamily: 'Inter', fontSize: 17.0)),
+                          onPressed: () {
+                            launch(
+                                'https://github.com/iamcosmin/Vanto-Flutter/issues');
+                          },
+                        ),
+                        CupertinoDialogAction(
+                          child: Text(translation.generalRetry,
+                              style: TextStyle(
+                                  fontFamily: 'Inter', fontSize: 17.0)),
+                          onPressed: () {
+                            verifyBan();
+                            Navigator.pop(context);
+                          },
+                        )
+                      ],
                     ),
-                    CupertinoDialogAction(
-                      child: Text(translation.generalRetry,
-                          style: TextStyle(
-                              fontFamily: 'Inter', fontSize: 17.0)),
-                      onPressed: () {verifyBan(); Navigator.pop(context);},
-                    )
-                  ],
-                ),
-              ));
+                  ));
         }
       }
     });
   }
- @override
+
+  @override
   void initState() {
     super.initState();
   }
@@ -114,7 +137,6 @@ class _TabNavigator extends State<TabNavigator> {
   didChangeDependencies() {
     super.didChangeDependencies();
     verifyMaintenance();
-    
   }
 
   int _selectedIndex = 0;
