@@ -7,7 +7,6 @@ import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import '../../../locale.dart';
-import '../trailing.dart';
 import 'details.dart';
 
 class StoreTile extends StatefulWidget {
@@ -15,8 +14,15 @@ class StoreTile extends StatefulWidget {
   final String title;
   final String subtitle;
   final String link;
+  final bool isLiveContent;
 
-  const StoreTile({Key key, this.image, this.title, this.subtitle, this.link})
+  const StoreTile(
+      {Key key,
+      this.image,
+      this.title,
+      this.subtitle,
+      this.link,
+      @required this.isLiveContent})
       : super(key: key);
 
   @override
@@ -24,18 +30,16 @@ class StoreTile extends StatefulWidget {
 }
 
 class _StoreTile extends State<StoreTile> {
+  bool isStarPressed = false;
+
   @override
   Widget build(BuildContext context) {
-    return DefaultTextStyle(
+    return new DefaultTextStyle(
       style: TextStyle(
           fontFamily: 'Inter',
           color: CupertinoTheme.of(context).primaryContrastingColor),
       child: Container(
         height: 70.0,
-        padding: EdgeInsets.only(
-          left: 10.0,
-          right: 10.0,
-        ),
         child: GestureDetector(
           child: ListTile(
             title: Text(widget.title,
@@ -52,91 +56,33 @@ class _StoreTile extends State<StoreTile> {
               borderRadius: BorderRadius.circular(10.0),
               child: Image.network(widget.image),
             ),
-            onTap: () => CupertinoScaffold.showCupertinoModalBottomSheet(
-              enableDrag: false,
-              context: context,
-              builder: (context, scrollController) =>
-                  WebViewCreator(widget.title, widget.link),
-            ),
-            onLongPress: () {
-              Translation translation = Translation.of(context);
-              showCupertinoModalPopup(
-                context: context,
-                builder: (BuildContext context) => CupertinoActionSheet(
-                  title: Text(widget.title + translation.storeSheetTitle),
-                  message: Text(translation.storeSheetSubtitle),
-                  actions: <Widget>[
-                    CupertinoActionSheetAction(
-                      child: Text(translation.generalReport),
-                      onPressed: () {
-                        launch('https://t.me/iamcosmin');
-                      },
-                    )
-                  ],
-                  cancelButton: CupertinoActionSheetAction(
-                    child: Text(translation.generalCancel),
-                    isDestructiveAction: true,
-                    onPressed: () {
-                      Navigator.pop(context, 'Cancel');
-                    },
-                  ),
-                ),
-              );
-            },
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class ModdedStoreTile extends StatefulWidget {
-  final String image;
-  final String title;
-  final String subtitle;
-  final String link;
-
-  const ModdedStoreTile(
-      {Key key, this.image, this.title, this.subtitle, this.link})
-      : super(key: key);
-
-  @override
-  _ModdedStoreTile createState() => _ModdedStoreTile();
-}
-
-class _ModdedStoreTile extends State<ModdedStoreTile> {
-  @override
-  Widget build(BuildContext context) {
-    return DefaultTextStyle(
-      style: TextStyle(
-          fontFamily: 'Inter',
-          color: CupertinoTheme.of(context).primaryContrastingColor),
-      child: Container(
-        height: 70.0,
-        padding: EdgeInsets.only(
-          left: 10.0,
-          right: 10.0,
-        ),
-        child: GestureDetector(
-          child: ListTile(
-            title: Text(widget.title,
-                style: TextStyle(
-                    fontFamily: 'Inter',
-                    color: CupertinoTheme.of(context).primaryContrastingColor,
-                    fontSize: 19.0)),
-            subtitle: Text(widget.subtitle,
-                style: TextStyle(
-                    fontFamily: 'Inter',
-                    color: CupertinoColors.inactiveGray,
-                    fontSize: 16.0)),
-            leading: ClipRRect(
-              borderRadius: BorderRadius.circular(10.0),
-              child: Image.network(widget.image),
+            trailing: CupertinoButton(
+              child: Icon(
+                isStarPressed != true ? Icons.star_border : Icons.star,
+                color: CupertinoColors.activeGreen,
+                size: 30,
+              ),
+              padding: EdgeInsets.only(left: 20),
+              onPressed: () {
+                if (isStarPressed == true) {
+                  isStarPressed == false;
+                } else {
+                  isStarPressed == true;
+                }
+              },
             ),
             onTap: () => CupertinoScaffold.showCupertinoModalBottomSheet(
+                enableDrag: widget.isLiveContent == true ? false : true,
                 context: context,
-                builder: (context, scrollController) => Details(
-                    widget.title, widget.image, widget.subtitle, widget.link)),
+                // ignore: missing_return
+                builder: (context, scrollController) {
+                  if (widget.isLiveContent == true) {
+                    return new WebViewCreator(widget.title, widget.link);
+                  } else if (widget.isLiveContent != true) {
+                    return new Details(widget.title, widget.image,
+                        widget.subtitle, widget.link);
+                  }
+                }),
             onLongPress: () {
               Translation translation = Translation.of(context);
               showCupertinoModalPopup(
@@ -184,9 +130,6 @@ class WebViewCreator extends StatelessWidget {
             javascriptMode: JavascriptMode.unrestricted,
             initialUrl: link,
             gestureNavigationEnabled: true,
-            onWebViewCreated: (WebViewController webViewController) {
-              _controller.complete(webViewController);
-            },
           ),
         ),
         navigationBar: CupertinoNavigationBar(

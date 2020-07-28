@@ -4,12 +4,12 @@ import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:package_info/package_info.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../locale.dart';
 import '../home.dart';
 import '../settings.dart';
 import '../store.dart';
+import '../tv.dart';
 
 class TabNavigator extends StatefulWidget {
   @override
@@ -143,6 +143,7 @@ class _TabNavigator extends State<TabNavigator> {
   static List _widgetOptions = [
     Home(),
     Store(),
+    TV(),
     Settings(),
   ];
 
@@ -178,6 +179,10 @@ class _TabNavigator extends State<TabNavigator> {
                   GButton(
                     icon: Ionicons.ios_appstore,
                     text: Translation.of(context).navigationStore,
+                  ),
+                  GButton(
+                    icon: Ionicons.ios_tv,
+                    text: 'TV',
                   ),
                   GButton(
                     icon: Ionicons.ios_cog,

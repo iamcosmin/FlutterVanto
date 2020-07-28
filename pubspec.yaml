@@ -1,6 +1,6 @@
 name: Vanto
 description: Aplicația Vanto pentru Android!
-version: 6.0.1+2020072602
+version: 6.0.1+2020072801
 
 environment:
   sdk: ">=2.2.2"

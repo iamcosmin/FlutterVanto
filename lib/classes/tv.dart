@@ -7,16 +7,17 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '../locale.dart';
 
-class Store extends StatefulWidget {
+class TV extends StatefulWidget {
   @override
-  _StoreState createState() => _StoreState();
+  _TVState createState() => _TVState();
 }
 
-class _StoreState extends State<Store> {
+class _TVState extends State<TV> {
   Map<int, Widget> children(context) {
     final Map<int, Widget> children = <int, Widget>{
-      0: Text(Translation.of(context).storeApps),
-      1: Text(Translation.of(context).storeGames),
+      0: Text(Translation.of(context).storeMovies),
+      1: Text(Translation.of(context).storeCategorySeries),
+      2: Text('Desene'),
     };
     return children;
   }
@@ -39,7 +40,7 @@ class _StoreState extends State<Store> {
         child: CustomScrollView(
           slivers: [
             CupertinoSliverNavigationBar(
-              largeTitle: Text(Translation.of(context).navigationStore),
+              largeTitle: Text('TV'),
             ),
             SliverBuilder(
               build: Container(
@@ -60,8 +61,7 @@ class _StoreState extends State<Store> {
                         child: currentSegment == 0
                             ? StreamBuilder<QuerySnapshot>(
                                 stream: Firestore.instance
-                                    .collection('apps')
-                                    .orderBy("title")
+                                    .collection('movies')
                                     .snapshots(),
                                 builder: (BuildContext context,
                                     AsyncSnapshot<QuerySnapshot> snapshot) {
@@ -75,8 +75,9 @@ class _StoreState extends State<Store> {
                                         title: document['title'],
                                         image: document['image'],
                                         link: document['link'],
-                                        isLiveContent: false,
-                                        subtitle: 'App',
+                                        isLiveContent: true,
+                                        subtitle: Translation.of(context)
+                                            .storeCategoryMovie,
                                       );
                                     }).toList(),
                                   );
@@ -85,7 +86,7 @@ class _StoreState extends State<Store> {
                             : currentSegment == 1
                                 ? StreamBuilder<QuerySnapshot>(
                                     stream: Firestore.instance
-                                        .collection('games')
+                                        .collection('series')
                                         .snapshots(),
                                     builder: (BuildContext context,
                                         AsyncSnapshot<QuerySnapshot> snapshot) {
@@ -99,9 +100,9 @@ class _StoreState extends State<Store> {
                                             title: document['title'],
                                             image: document['image'],
                                             link: document['link'],
-                                            isLiveContent: false,
+                                            isLiveContent: true,
                                             subtitle: Translation.of(context)
-                                                .storeCategoryGame,
+                                                .storeCategorySeries,
                                           );
                                         }).toList(),
                                       );
@@ -110,7 +111,7 @@ class _StoreState extends State<Store> {
                                 : currentSegment == 2
                                     ? StreamBuilder<QuerySnapshot>(
                                         stream: Firestore.instance
-                                            .collection('movies')
+                                            .collection('cartoons')
                                             .snapshots(),
                                         builder: (BuildContext context,
                                             AsyncSnapshot<QuerySnapshot>
@@ -127,9 +128,7 @@ class _StoreState extends State<Store> {
                                                 image: document['image'],
                                                 link: document['link'],
                                                 isLiveContent: true,
-                                                subtitle:
-                                                    Translation.of(context)
-                                                        .storeCategoryMovie,
+                                                subtitle: 'Desen Animat',
                                               );
                                             }).toList(),
                                           );
